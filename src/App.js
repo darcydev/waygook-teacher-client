@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Layout } from "antd";
+import Cookies from "js-cookie";
 
 import "antd/dist/antd.css";
 
@@ -11,27 +12,37 @@ import Search from "./pages/Search";
 
 import NavBar from "./components/Navigation/NavBar";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 
 export default function App() {
+  const USER_LOGGED_IN = Cookies.get("email") ? true : false;
+
+  console.log(USER_LOGGED_IN);
+
+  const MARKUP = USER_LOGGED_IN ? (
+    <>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/search" component={Search} />
+    </>
+  ) : (
+    <>
+      <Route exact path="/" component={Home} />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Register} />
+    </>
+  );
+
   return (
     <div className="App">
       <Layout>
         <Header style={{ border: "5px solid red", minHeight: "100px" }}>
           <NavBar />
         </Header>
-        <Content style={{ minHeight: "90vh" }}>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/register" component={Register} />
-          <Route exact path="/search" component={Search} />
-          {/* TODO: make error page <Route component={Error} /> */}
-        </Content>
+        <Content style={{ minHeight: "90vh" }}>{MARKUP}</Content>
         <Footer
           style={{
             border: "5px solid red",
-            minHeight: "100px",
-            maxHeight: "500px"
+            minHeight: "100px"
           }}
         >
           Footer

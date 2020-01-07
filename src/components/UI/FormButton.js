@@ -5,10 +5,16 @@ export default function FormButton({
   text = "Default text",
   type = "primary",
   htmlType = "submit",
-  classes = undefined
+  classes = undefined,
+  disabled = false
 }) {
   return (
-    <Button type={type} htmlType={htmlType} className={classes}>
+    <Button
+      type={type}
+      htmlType={htmlType}
+      className={classes}
+      disabled={disabled}
+    >
       {text}
     </Button>
   );

@@ -1,21 +1,22 @@
-import React from 'react';
-import { Button as AntButton } from 'antd';
+import React from "react";
+import { Button as AntButton } from "antd";
 
 export default function SimpleButton({
   shape = undefined,
-  type = 'primary',
+  type = "primary",
   icon = undefined,
   customTextIcon = undefined,
   theme = undefined,
-  size = 'large',
-  text = 'Btn Text',
+  size = "large",
+  text = "Btn Text",
   href = undefined,
   styles = undefined,
   classes = undefined,
   customStyleType = undefined,
-  disabled = false
+  disabled = false,
+  onClick = undefined
 }) {
-  if (customStyleType === 'big') styles = customBigButtonStyle;
+  if (customStyleType === "big") styles = customBigButtonStyle;
 
   return (
     <AntButton
@@ -30,6 +31,7 @@ export default function SimpleButton({
       style={styles}
       className={classes}
       disabled={disabled}
+      onClick={onClick}
     >
       {customTextIcon}
       {text}
@@ -38,11 +40,11 @@ export default function SimpleButton({
 }
 
 const customBigButtonStyle = {
-  color: 'white',
-  textTransform: 'uppercase',
-  fontFamily: 'Quicksand',
-  padding: '10px',
-  letterSpacing: '0.8x',
-  cursor: 'pointer',
-  height: '100%'
+  color: "white",
+  textTransform: "uppercase",
+  fontFamily: "Quicksand",
+  padding: "10px",
+  letterSpacing: "0.8x",
+  cursor: "pointer",
+  height: "100%"
 };
