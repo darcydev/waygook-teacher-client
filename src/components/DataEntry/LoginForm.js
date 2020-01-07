@@ -1,6 +1,9 @@
-import React, { Component } from 'react';
-import axios from 'axios';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { Form, Input } from "antd";
+
+import FormButton from "../UI/FormButton";
 
 // TODO.. test whether it is possible to use a stateless component
 // and simply pass the 'values' from the Ant form as opposed to using
@@ -10,37 +13,37 @@ export default class LoginForm extends Component {
     super(props);
 
     this.state = {
-      username: '',
-      password: '',
-      success: false
+      username: "",
+      password: "",
+      loggedIn: false
     };
   }
 
   login() {
     axios({
-      method: 'POST',
-      url: 'http://localhost:3002/login.php',
+      method: "POST",
+      url: "http://localhost:3002/login.php",
       data: this.state
-    }).then(response => {
-      if (response.data.status === 'success') {
-        alert('Logged in!');
+    }).then((response) => {
+      if (response.data.status === "success") {
+        alert("Logged in!");
 
-        this.setState({ success: true });
-      } else if (response.data.status === 'fail') {
-        alert('Failed to log in');
+        this.setState({ loggedIn: true });
+      } else if (response.data.status === "fail") {
+        alert("Failed to log in");
       }
     });
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        console.log("Received values of form: ", values);
 
         this.setState(
           {
-            username: values.username,
+            username: values.email,
             password: values.password
           },
           () => this.login()
@@ -55,42 +58,27 @@ export default class LoginForm extends Component {
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
         <Form.Item>
-          {getFieldDecorator('username', {
-            rules: [{ required: true, message: 'Please input your username!' }]
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="Username"
-            />
-          )}
+          {getFieldDecorator("email", {
+            rules: [
+              {
+                type: "email",
+                message: "The input is not valid E-mail!"
+              },
+              {
+                required: true,
+                message: "Please input your E-mail!"
+              }
+            ]
+          })(<Input placeholder="Email" />)}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator('password', {
-            rules: [{ required: true, message: 'Please input your Password!' }]
-          })(
-            <Input
-              prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              type="password"
-              placeholder="Password"
-            />
-          )}
+          {getFieldDecorator("password", {
+            rules: [{ required: true }]
+          })(<Input type="password" placeholder="Password" />)}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true
-          })(<Checkbox>Remember me</Checkbox>)}
-          <a className="login-form-forgot" href="">
-            Forgot password
-          </a>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
-          >
-            Log in
-          </Button>
-          Or <a href="">register now!</a>
+          <FormButton text="Login" />
+          Not a member? <Link to="/register">Register</Link>
         </Form.Item>
       </Form>
     );

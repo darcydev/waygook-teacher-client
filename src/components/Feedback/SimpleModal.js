@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
-import { Modal, Button } from 'antd';
+import React, { Component } from "react";
+import { Modal, Button } from "antd";
 
 export default class SimpleModal extends Component {
   state = {
-    ModalText: 'Content of the modal',
+    ModalText: "Content of the modal",
     visible: false,
     confirmLoading: false
   };
@@ -16,7 +16,7 @@ export default class SimpleModal extends Component {
 
   handleOk = () => {
     this.setState({
-      ModalText: 'The modal will be closed after two seconds',
+      ModalText: "The modal will be closed after two seconds",
       confirmLoading: true
     });
     setTimeout(() => {
@@ -28,7 +28,7 @@ export default class SimpleModal extends Component {
   };
 
   handleCancel = () => {
-    console.log('Clicked cancel button');
+    console.log("Clicked cancel button");
     this.setState({
       visible: false
     });
