@@ -10,6 +10,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+.page {
+  padding: 70px 30px;
+}
+
+.page,
 .container {
   max-width: 1060px;
   margin: auto;

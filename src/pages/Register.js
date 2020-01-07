@@ -3,15 +3,17 @@ import styled from "styled-components";
 import { Form } from "antd";
 
 import RegisterForm from "../components/DataEntry/RegisterForm";
+import PageHeading from "../components/DataDisplay/Headings/PageHeading";
 
 export default function Register() {
   const WrappedRegisterForm = Form.create({ name: "login" })(RegisterForm);
 
   return (
-    <Container className="container">
+    <Page className="page">
+      <PageHeading heading="Register" />
       <WrappedRegisterForm />
-    </Container>
+    </Page>
   );
 }
 
-const Container = styled.div``;
+const Page = styled.div``;

@@ -1,14 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
-export default function SectionHeading({
-  heading = "default heading",
-  backgroundHeading,
+export default function PageHeading({
+  heading = "default page heading",
   subHeading
 }) {
   return (
     <Container>
-      <h2 title={backgroundHeading ? backgroundHeading : heading}>{heading}</h2>
+      <h1>{heading}</h1>
       <p>{subHeading}</p>
     </Container>
   );

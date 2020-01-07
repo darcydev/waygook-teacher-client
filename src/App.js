@@ -7,6 +7,7 @@ import "antd/dist/antd.css";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Search from "./pages/Search";
 
 import NavBar from "./components/Navigation/NavBar";
 
@@ -16,13 +17,14 @@ export default function App() {
   return (
     <div className="App">
       <Layout>
-        <Header style={{ background: "pink", minHeight: "100px" }}>
+        <Header style={{ border: "5px solid red", minHeight: "100px" }}>
           <NavBar />
         </Header>
         <Content style={{ minHeight: "90vh" }}>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/search" component={Search} />
           {/* TODO: make error page <Route component={Error} /> */}
         </Content>
         <Footer

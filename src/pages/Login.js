@@ -3,15 +3,17 @@ import styled from "styled-components";
 import { Form } from "antd";
 
 import LoginForm from "../components/DataEntry/LoginForm";
+import PageHeading from "../components/DataDisplay/Headings/PageHeading";
 
 export default function Login() {
   const WrappedLoginForm = Form.create({ name: "login" })(LoginForm);
 
   return (
-    <Container className="container">
+    <Page className="page">
+      <PageHeading heading="Login" />
       <WrappedLoginForm />
-    </Container>
+    </Page>
   );
 }
 
-const Container = styled.div``;
+const Page = styled.div``;
