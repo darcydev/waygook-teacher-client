@@ -16,7 +16,8 @@ const data = [
   {
     title: "Search",
     link: "/search"
-  }
+  },
+  { title: "Profile", link: "/profile" }
 ];
 
 export default function NavBar() {
