@@ -9,57 +9,82 @@ const { Meta } = Card;
 
 const dummyData = [
   {
-    profileSrc:
+    userID: -1,
+    profile_pic:
       "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
     flagSrc:
       "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png",
-    name: "Michael Jackson"
+    first_name: "Michael Douglas"
   },
   {
-    profileSrc:
+    userID: -2,
+    profile_pic:
       "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
     flagSrc:
       "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png",
-    name: "Michael Jackson"
+    first_name: "Michael Douglas"
   },
   {
-    profileSrc:
+    userID: -3,
+    profile_pic:
       "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-    flagSrc:
-      "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png",
-    name: "Michael Jackson"
+    flagSrc: "images/flags/american-flag.png",
+    first_name: "Michael Douglas"
   }
 ];
 
 export default class Search extends Component {
-  state = { profiles: [] };
+  state = { users: [] };
 
   componentDidMount() {
+    this.fetchUsers();
+  }
+
+  fetchUsers = () => {
     axios({
       method: "GET",
       url: "http://localhost:3002/users.php"
     }).then((response) => {
       console.log(response);
-    });
-  }
 
-  onMessageClick = () => console.log("message button clicked");
-  onProfileClick = () => console.log("profile button clicked");
-  onBookingClick = () => console.log("booking button clicked");
+      this.setState({ users: response.data });
+    });
+  };
+
+  onMessageClick = (userID) => console.log("message button clicked", userID);
+  onProfileClick = (userID) => console.log("profile button clicked", userID);
+  onBookingClick = (userID) => console.log("booking button clicked", userID);
 
   render() {
-    const CARD_MARKUP = dummyData.map((v, i) => (
+    const data = this.state.users.length === 0 ? dummyData : this.state.users;
+
+    const CARD_MARKUP = data.map((v, i) => (
       <Card
-        key={`${i}: ${v}`}
+        key={v.userID === undefined ? `${i}: ${v}` : v.userID}
         style={{ width: 300, marginBottom: "20px" }}
-        cover={<img alt="profile" src={v.profileSrc} />}
+        cover={<img alt="profile" src={v.profile_pic} />}
         actions={[
-          <Icon type="message" key="message" onClick={this.onMessageClick} />,
-          <Icon type="profile" key="profile" onClick={this.onProfileClick} />,
-          <Icon type="calendar" key="calendar" onClick={this.onBookingClick} />
+          <Icon
+            type="message"
+            key="message"
+            onClick={this.onMessageClick(v.userID)}
+          />,
+          <Icon
+            type="profile"
+            key="profile"
+            onClick={this.onProfileClick(v.userID)}
+          />,
+          <Icon
+            type="calendar"
+            key="calendar"
+            onClick={this.onBookingClick(v.userID)}
+          />
         ]}
       >
-        <Meta avatar={<Avatar src={v.flagSrc} />} title={v.name} />
+        <Meta
+          avatar={<Avatar src={`images/flags/${v.nationality}-flag.png`} />}
+          title={v.first_name}
+        />
       </Card>
     ));
 
@@ -71,35 +96,6 @@ export default class Search extends Component {
     );
   }
 }
-
-/* export default function Search({ data = dummyData }) {
-  const CARD_MARKUP = data.map((v, i) => (
-    <Card
-      key={`${i}: ${v}`}
-      style={{ width: 300, marginBottom: "20px" }}
-      cover={<img alt="profile" src={v.profileSrc} />}
-      actions={[
-        <Icon type="message" key="message" onClick={onMessageClick} />,
-        <Icon type="profile" key="profile" onClick={onProfileClick} />,
-        <Icon type="calendar" key="calendar" onClick={onBookingClick} />
-      ]}
-    >
-      <Meta avatar={<Avatar src={v.flagSrc} />} title={v.name} />
-    </Card>
-  ));
-
-  // TODO: include filter functionality
-  // TODO: load all profiles from the backend with role != loggedInUser's role
-
-  return (
-    <div className="page">
-      <PageHeading heading="Search" subHeading="find your perfect teacher" />
-      <FlexWrap>{CARD_MARKUP}</FlexWrap>
-    </div>
-  );
-}
-
- */
 
 const FlexWrap = styled.div`
   display: flex;

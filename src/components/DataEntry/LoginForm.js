@@ -7,18 +7,20 @@ import { Form, Input } from "antd";
 import FormButton from "../UI/FormButton";
 
 export default class LoginForm extends Component {
+  state = {
+    loggedIn: false
+  };
+
   login(values) {
     axios({
       method: "POST",
       url: "http://localhost:3002/login.php",
       data: values
     }).then((response) => {
-      if (response.data.status === "success") {
-        alert("Logged in!");
-
+      if (response.data.status === "fail") this.setState({ loggedIn: false });
+      else if (response.data.status === "success") {
         Cookies.set("email", values.email);
-      } else if (response.data.status === "fail") {
-        alert("Failed to log in");
+        this.setState({ loggedIn: true });
       }
     });
   }
