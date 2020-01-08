@@ -1,68 +1,87 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Card, Icon, Avatar } from "antd";
 import axios from "axios";
+import { Row, Col, Card, Icon, Avatar, Select, Slider } from "antd";
 
 import PageHeading from "../components/DataDisplay/Headings/PageHeading";
 
-const { Meta } = Card;
-
-const dummyData = [
-  {
-    userID: -1,
-    profile_pic:
-      "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-    flagSrc:
-      "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png",
-    first_name: "Michael Douglas"
-  },
-  {
-    userID: -2,
-    profile_pic:
-      "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-    flagSrc:
-      "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png",
-    first_name: "Michael Douglas"
-  },
-  {
-    userID: -3,
-    profile_pic:
-      "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-    flagSrc: "images/flags/american-flag.png",
-    first_name: "Michael Douglas"
-  }
-];
+const dummyData = [];
 
 export default class Profile extends Component {
-  state = { user: {} };
+  state = {
+    user: {},
+    // the slug passed in the URL through Router
+    slug: this.props.match.params.slug
+  };
 
   componentDidMount() {
-    this.fetchProfile();
+    this.fetchProfile(this.state.slug);
   }
 
-  fetchProfile = () => {
+  fetchProfile = (userID) => {
     axios({
-      method: "GET",
-      url: "http://localhost:3002/users.php"
+      method: "POST",
+      url: "http://localhost:3002/profile.php",
+      data: { userID: userID }
     }).then((response) => {
-      console.log(response);
+      this.setState({ user: response.data });
     });
   };
 
   render() {
     //const data = this.state.users.length === 0 ? dummyData : this.state.users;
 
+    console.log(this.state);
+
+    const {
+      first_name,
+      last_name,
+      profile_pic,
+      description,
+      role,
+      gender,
+      nationality,
+      education_level,
+      education_major,
+      DOB,
+      rate,
+      skype_name,
+      lesson_hours,
+      rating,
+      timezone
+    } = this.state.user;
+
     return (
       <div className="page">
         <PageHeading heading="Profile" subHeading="specific profile details" />
-        <div className="content">hey baby</div>
+        <Content className="content">
+          <Row style={{ display: "flex" }}>
+            <Col span={12}>
+              <img
+                src={profile_pic}
+                alt="profile"
+                style={{ maxWidth: "350px" }}
+              />
+            </Col>
+            <Col span={12}>
+              <p>
+                Name: {first_name} {last_name}
+              </p>
+              <p>
+                <Avatar src={`images/flags/${nationality}-flag.png`} />
+              </p>
+            </Col>
+          </Row>
+          <Row>
+            <div>ACTIONS</div>
+          </Row>
+          <Row>
+            <div>PROFILE CONTENT</div>
+          </Row>
+        </Content>
       </div>
     );
   }
 }
 
-const FlexWrap = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-`;
+const Content = styled.div``;

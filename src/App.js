@@ -24,7 +24,7 @@ export default function App() {
     <>
       <Route exact path="/" component={Home} />
       <Route exact path="/search" component={Search} />
-      <Route exact path="/profile" component={Profile} />
+      <Route exact path="/profile/:slug" component={Profile} />
     </>
   ) : (
     <>
@@ -37,14 +37,16 @@ export default function App() {
   return (
     <div className="App">
       <Layout>
-        <Header style={{ border: "5px solid red", minHeight: "100px" }}>
+        <Header style={{ minHeight: "100px" }}>
           <NavBar />
         </Header>
-        <Content style={{ minHeight: "90vh" }}>{MARKUP}</Content>
+        <Content style={{ minHeight: "90vh" }}>
+          <Switch>{MARKUP}</Switch>
+        </Content>
         <Footer
           style={{
-            border: "5px solid red",
-            minHeight: "100px"
+            minHeight: "100px",
+            background: "#001529"
           }}
         >
           Footer

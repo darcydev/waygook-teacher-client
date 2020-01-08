@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import { Card, Icon, Avatar, Select, Slider, Radio } from "antd";
+import { Card, Icon, Avatar, Select, Slider } from "antd";
 
 import axios from "axios";
 
 import PageHeading from "../components/DataDisplay/Headings/PageHeading";
-import SimpleSlider from "../components/DataEntry/Sliders/SimpleSlider";
 import IconWithText from "../components/DataDisplay/IconWithText";
 
 const { Option } = Select;
@@ -74,21 +73,6 @@ export default class Search extends Component {
     return age;
   };
 
-  // FUNCTIONALITY REMOVED FOR NOW
-  calculateUserRates = () => {
-    const users = Object.values(this.state.users);
-
-    let min = Number.NEGATIVE_INFINITY;
-    let max = Number.POSITIVE_INFINITY;
-
-    users.forEach((v) => {
-      if (v.rate < min) min = v.rate;
-      if (v.rate > max) max = v.rate;
-    });
-
-    this.setState({ minRate: min, maxRate: max });
-  };
-
   onNationFilter = (value) => this.setState({ nation: value });
   onAgeFilter = (value) =>
     this.setState({ minAge: value[0], maxAge: value[1] });
@@ -114,8 +98,6 @@ export default class Search extends Component {
       if (!YOUNG || AGE < YOUNG) YOUNG = AGE;
       if (!OLD || AGE > OLD) OLD = AGE;
     });
-
-    console.log(YOUNG, OLD, CHEAP, EXXY);
 
     // FILTER MARKUPS
     const NATIONALITIES = [
