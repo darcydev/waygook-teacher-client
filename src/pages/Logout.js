@@ -1,8 +1,20 @@
+import React from "react";
+import styled from "styled-components";
 import Cookies from "js-cookie";
 
-export const logout = () => {
-  // TODO: page isn't refreshing
-  window.location.reload();
+export default function Logout() {
+  if (Cookies.get("email")) Cookies.remove("email");
+  if (Cookies.get("userID")) {
+    Cookies.remove("userID");
 
-  Cookies.remove("email");
-};
+    window.location.reload();
+  }
+
+  return (
+    <Page className="page">
+      <h3>You've been logged out!</h3>
+    </Page>
+  );
+}
+
+const Page = styled.div``;

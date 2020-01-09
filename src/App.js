@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Search from "./pages/Search";
 import Profile from "./pages/Profile";
+import Logout from "./pages/Logout";
 
 import NavBar from "./components/Navigation/NavBar";
 
@@ -20,24 +21,26 @@ export default function App() {
 
   console.log(`user logged in: ${USER_LOGGED_IN}`);
 
-  const MARKUP = USER_LOGGED_IN ? (
-    <>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/search" component={Search} />
-      <Route exact path="/profile/:slug" component={Profile} />
-    </>
-  ) : (
+  const MARKUP = (
     <>
       <Route exact path="/" component={Home} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
+      <Route exact path="/logout" component={Logout} />
+      <Route exact path="/search" component={Search} />
+      <Route exact path="/profile/:slug" component={Profile} />
     </>
   );
 
   return (
     <div className="App">
       <Layout>
-        <Header style={{ minHeight: "100px" }}>
+        <Header style={{ display: "flex" }}>
+          <img
+            src="https://avatarfiles.alphacoders.com/162/162739.jpg"
+            alt="logo"
+            style={{ maxWidth: "50px", maxHeight: "50px", alignSelf: "center" }}
+          />
           <NavBar />
         </Header>
         <Content style={{ minHeight: "90vh" }}>

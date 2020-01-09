@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import axios from "axios";
-import { Row, Col, Card, Icon, Avatar, Select, Slider } from "antd";
+import { Row, Col, Card, Icon, Avatar, Layout } from "antd";
 
 import PageHeading from "../components/DataDisplay/Headings/PageHeading";
+import CollapseSideBar from "../sections/CollapseSideBar";
+
+const { Content } = Layout;
 
 const dummyData = [];
 
@@ -56,35 +59,41 @@ export default class Profile extends Component {
 
     return (
       <div className="page">
-        <PageHeading heading="Profile" subHeading="specific profile details" />
-        <Content className="content">
-          <Row style={{ display: "flex" }}>
-            <Col span={12}>
-              <img
-                src={profile_pic}
-                alt="profile"
-                style={{ maxWidth: "350px" }}
-              />
-            </Col>
-            <Col span={12}>
-              <p>
-                Name: {first_name} {last_name}
-              </p>
-              <p>
-                <Avatar src={`images/flags/${nationality}-flag.png`} />
-              </p>
-            </Col>
-          </Row>
-          <Row>
-            <div>ACTIONS</div>
-          </Row>
-          <Row>
-            <div>PROFILE CONTENT</div>
-          </Row>
-        </Content>
+        <Layout>
+          <CollapseSideBar slug={this.state.slug} />
+          <Content className="content">
+            <PageHeading
+              heading="Profile"
+              subHeading="find all profile details here"
+            />
+            <Row style={{ display: "flex" }}>
+              <Col span={12}>
+                <img
+                  src={profile_pic}
+                  alt="profile"
+                  style={{ maxWidth: "350px" }}
+                />
+              </Col>
+              <Col span={12}>
+                <p>
+                  Name: {first_name} {last_name}
+                </p>
+                <p>
+                  <Avatar src={`images/flags/${nationality}-flag.png`} />
+                </p>
+              </Col>
+            </Row>
+            <Row>
+              <DescriptionContainer>{description}</DescriptionContainer>
+            </Row>
+          </Content>
+        </Layout>
       </div>
     );
   }
 }
 
-const Content = styled.div``;
+const ActionsContainer = styled.div`
+  border: 5px solid green;
+`;
+const DescriptionContainer = styled.div``;

@@ -1,44 +1,66 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Menu, Row, Col } from "antd";
+import { Menu } from "antd";
 import Cookies from "js-cookie";
 
 import { logout } from "../../data/logout";
-import { checkUserLoggedIn } from "../../data/login";
 
 import SimpleButton from "../UI/SimpleButton";
 
 const data = [
   {
     title: "Login",
-    link: "/login"
+    link: "/login",
+    icon: undefined,
+    loggedIn: false
   },
   {
     title: "Search",
-    link: "/search"
+    link: "/search",
+    icon: undefined,
+    loggedIn: true
   },
-  { title: "Profile", link: `profile/${Cookies.get("userID")}` }
+  {
+    title: "Profile",
+    link: `profile/${Cookies.get("userID")}`,
+    icon: undefined,
+    loggedIn: true
+  },
+  {
+    title: "Logout",
+    link: "/logout",
+    icon: undefined,
+    loggedIn: true
+  }
 ];
 
 export default function NavBar() {
-  const USER_LOGGED_IN = checkUserLoggedIn();
+  const USER_LOGGED_IN = Cookies.get("userID") > 0;
 
-  const ITEMS_MARKUP = data.map((v, i) => (
-    <Menu.Item key={`${i}:${v.title}`}>
-      <Link to={v.link}>
-        <SimpleButton
-          type="link"
-          href={v.link}
-          text={v.title}
-          styles={{ color: "wheat" }}
-        />
-      </Link>
-    </Menu.Item>
-  ));
+  const MENU_ITEMS = data.map((v, i) => {
+    if (v.loggedIn === USER_LOGGED_IN) {
+      return (
+        <Menu.Item key={i}>
+          <Link to={v.link}>{v.title}</Link>
+        </Menu.Item>
+      );
+    }
+  });
 
   return (
-    <Container>
+    <Menu
+      theme="dark"
+      mode="horizontal"
+      defaultSelectedKeys={["1"]}
+      style={{ lineHeight: "64px", width: "100%", textAlign: "right" }}
+    >
+      {MENU_ITEMS}
+    </Menu>
+  );
+}
+
+/*    <Container>
       <Row>
         <Col span={8}>
           <Link to="/">INSERT LOGO</Link>
@@ -56,9 +78,7 @@ export default function NavBar() {
           </Menu>
         </Col>
       </Row>
-    </Container>
-  );
-}
+    </Container> */
 
 const Container = styled.div`
   color: white;
