@@ -6,7 +6,9 @@ export default function FormButton({
   type = "primary",
   htmlType = "submit",
   classes = undefined,
-  disabled = false
+  disabled = false,
+  loading = false,
+  styles = undefined
 }) {
   return (
     <Button
@@ -14,6 +16,8 @@ export default function FormButton({
       htmlType={htmlType}
       className={classes}
       disabled={disabled}
+      loading={loading}
+      style={styles}
     >
       {text}
     </Button>

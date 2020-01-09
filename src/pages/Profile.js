@@ -22,7 +22,10 @@ export default class Profile extends Component {
     axios({
       method: "POST",
       url: "http://localhost:3002/profile.php",
-      data: { userID: userID }
+      data: { userID: userID },
+      params: {
+        userID
+      }
     }).then((response) => {
       this.setState({ user: response.data });
     });

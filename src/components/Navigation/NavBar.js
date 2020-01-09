@@ -5,6 +5,7 @@ import { Menu, Row, Col } from "antd";
 import Cookies from "js-cookie";
 
 import { logout } from "../../data/logout";
+import { checkUserLoggedIn } from "../../data/login";
 
 import SimpleButton from "../UI/SimpleButton";
 
@@ -17,11 +18,11 @@ const data = [
     title: "Search",
     link: "/search"
   },
-  { title: "Profile", link: "/profile" }
+  { title: "Profile", link: `profile/${Cookies.get("userID")}` }
 ];
 
 export default function NavBar() {
-  const USER_LOGGED_IN = Cookies.get("email") ? true : false;
+  const USER_LOGGED_IN = checkUserLoggedIn();
 
   const ITEMS_MARKUP = data.map((v, i) => (
     <Menu.Item key={`${i}:${v.title}`}>

@@ -18,7 +18,7 @@ const { Header, Content, Footer } = Layout;
 export default function App() {
   const USER_LOGGED_IN = Cookies.get("email") ? true : false;
 
-  console.log(USER_LOGGED_IN);
+  console.log(`user logged in: ${USER_LOGGED_IN}`);
 
   const MARKUP = USER_LOGGED_IN ? (
     <>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Card, Icon, Avatar, Select, Slider } from "antd";
+import { Link, Redirect } from "react-router-dom";
 
 import axios from "axios";
 
@@ -79,10 +80,6 @@ export default class Search extends Component {
   onRateFilter = (value) =>
     this.setState({ minRate: value[0], maxRate: value[1] });
 
-  onMessageClick = (userID) => console.log("onMessageClick");
-  onProfileClick = (userID) => console.log("onProfileClick");
-  onBookingClick = (userID) => console.log("onBookingClick");
-
   render() {
     console.log(this.state);
 
@@ -112,8 +109,8 @@ export default class Search extends Component {
       <Option key={v.toLowerCase()}>{v}</Option>
     ));
 
-    // TODO... filter out cards on front end (should be done on backend?)
-    // for user items that are filtered out, return undefined
+    // TODO should the filtering out of cards be done on the front or backend?
+    // I suspect front is easier (but more verbose), but back is more data efficient
     const CARD_MARKUP = data.map((v, i) => {
       // FILTER CHECKS
       // nationality
@@ -131,34 +128,21 @@ export default class Search extends Component {
         return undefined;
       else
         return (
-          <Card
-            key={v.userID === undefined ? `${i}: ${v}` : v.userID}
-            style={{ width: 300, marginBottom: "20px" }}
-            cover={<img alt="profile" src={v.profile_pic} />}
-            actions={[
-              <Icon
-                type="message"
-                key="message"
-                onClick={this.onMessageClick(v.userID)}
-              />,
-              <Icon
-                type="profile"
-                key="profile"
-                onClick={this.onProfileClick(v.userID)}
-              />,
-              <Icon
-                type="calendar"
-                key="calendar"
-                onClick={this.onBookingClick(v.userID)}
+          <Link to={`profile/${v.userID}`}>
+            <Card
+              key={v.userID === undefined ? `${i}: ${v}` : v.userID}
+              style={{ width: 300, marginBottom: "20px" }}
+              cover={<img alt="profile" src={v.profile_pic} />}
+            >
+              <Meta
+                avatar={
+                  <Avatar src={`images/flags/${v.nationality}-flag.png`} />
+                }
+                title={v.first_name}
+                description={<IconWithText text={v.rate} />}
               />
-            ]}
-          >
-            <Meta
-              avatar={<Avatar src={`images/flags/${v.nationality}-flag.png`} />}
-              title={v.first_name}
-              description={<IconWithText text={v.rate} />}
-            />
-          </Card>
+            </Card>
+          </Link>
         );
     });
 
