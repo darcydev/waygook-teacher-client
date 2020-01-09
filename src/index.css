@@ -10,6 +10,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
+/* PAGES */
 .page {
   padding: 70px 30px;
 }
@@ -20,15 +21,32 @@ code {
   margin: auto;
 }
 
+/* HEADINGS */
+h1 {
+  font-size: 40px;
+}
+
+/* CONTAINERS */
 .flex-container-sm,
 .flex-container-md,
 .flex-container-lg {
   display: flex !important;
 }
 
+/* IMAGES */
+.img-md img {
+  width: 225px;
+  height: auto;
+  max-height: 225px;
+}
+
 @media only screen and (max-width: 425px) {
   .flex-container-sm {
     flex-direction: column !important;
+  }
+
+  .img-responsive img {
+    max-width: 90%;
   }
 }
 

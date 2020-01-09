@@ -130,6 +130,7 @@ export default class Search extends Component {
         return (
           <Link to={`profile/${v.userID}`}>
             <Card
+              className="img-md img-responsive"
               key={v.userID === undefined ? `${i}: ${v}` : v.userID}
               style={{ width: 300, marginBottom: "20px" }}
               cover={<img alt="profile" src={v.profile_pic} />}

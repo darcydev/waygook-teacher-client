@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 import { Modal, Button } from "antd";
 
+export default function SimpleModal({
+  title = "Default Title",
+  visible = false,
+  text = "Default Modal Content"
+}) {
+  return (
+    <Modal title="Title" visible={visible} onCancel={(visible = false)}>
+      <p>{text}</p>
+    </Modal>
+  );
+}
+
+/* 
 export default class SimpleModal extends Component {
   state = {
     ModalText: "Content of the modal",
@@ -37,20 +50,16 @@ export default class SimpleModal extends Component {
   render() {
     const { visible, confirmLoading, ModalText } = this.state;
     return (
-      <div>
-        <Button type="primary" onClick={this.showModal}>
-          Open Modal with async logic
-        </Button>
-        <Modal
-          title="Title"
-          visible={visible}
-          onOk={this.handleOk}
-          confirmLoading={confirmLoading}
-          onCancel={this.handleCancel}
-        >
-          <p>{ModalText}</p>
-        </Modal>
-      </div>
+      <Modal
+        title="Title"
+        visible={visible}
+        onOk={this.handleOk}
+        confirmLoading={confirmLoading}
+        onCancel={this.handleCancel}
+      >
+        <p>{ModalText}</p>
+      </Modal>
     );
   }
 }
+ */

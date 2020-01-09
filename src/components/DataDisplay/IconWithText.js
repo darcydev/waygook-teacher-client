@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Icon } from "antd";
 
 export default function IconWithText({
-  icon = <Icon type="dollar" theme="twoTone" twoToneColor="#52c41a" />,
+  icon = <Icon type="question" />,
   text = "Default text"
 }) {
   return (
