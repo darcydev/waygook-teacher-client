@@ -1,5 +1,7 @@
 import React from "react";
 import { Modal, Form, Input, Icon } from "antd";
+import axios from "axios";
+import Cookies from "js-cookie";
 
 const { TextArea } = Input;
 
@@ -40,19 +42,28 @@ export class MessageModalForm extends React.Component {
 
   showModal = () => this.setState({ visible: true });
   handleCancel = () => this.setState({ visible: false });
-
+  saveFormRef = (formRef) => (this.formRef = formRef);
   handleCreate = () => {
     const { form } = this.formRef.props;
     form.validateFields((err, values) => {
       if (err) return;
 
       console.log("Received values of message form: ", values);
+      this.send(values);
       form.resetFields();
       this.setState({ visible: false });
     });
   };
 
-  saveFormRef = (formRef) => (this.formRef = formRef);
+  send(values) {
+    axios({
+      method: "POST",
+      url: "http://localhost:3002/sendMessage.php",
+      data: { message: values.message, fromUser: Cookies.get("email") }
+    }).then((response) => {
+      console.log(response);
+    });
+  }
 
   render() {
     return (
