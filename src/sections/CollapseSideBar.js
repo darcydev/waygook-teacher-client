@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Icon, Layout, Menu } from "antd";
 import Cookies from "js-cookie";
 
-import SimpleModal from "../components/Feedback/SimpleModal";
+import { MessageModalForm } from "../components/DataEntry/Forms/Modals/Message";
+import { SettingsModalForm } from "../components/DataEntry/Forms/Modals/Settings";
 
 const { Sider } = Layout;
 
@@ -10,10 +11,8 @@ export default class CollapseSideBar extends Component {
   state = {
     ownProfile: false,
     collapsed: true,
-    messageModalOpen: false,
     calendarModalOpen: false,
-    walletModalOpen: false,
-    settingsModalOpen: false
+    walletModalOpen: false
   };
 
   componentDidMount() {
@@ -22,6 +21,8 @@ export default class CollapseSideBar extends Component {
   }
 
   onCollapse = (collapsed) => this.setState({ collapsed });
+
+  saveFormRef = (formRef) => (this.formRef = formRef);
 
   render() {
     console.log("SideBar State", this.state);
@@ -61,32 +62,16 @@ export default class CollapseSideBar extends Component {
           <Icon type="wallet" />
           <span>Wallet</span>
         </Menu.Item>
-        <Menu.Item
-          key="4"
-          onClick={() =>
-            this.setState({
-              settingsModalOpen: !this.state.settingsModalOpen
-            })
-          }
-        >
-          <Icon type="setting" />
-          <span>Settings</span>
+        <Menu.Item key="4">
+          <SettingsModalForm />
         </Menu.Item>
       </Menu>
     );
 
     const OTHER_PROFILE_MENU_MARKUP = (
       <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
-        <Menu.Item
-          key="1"
-          onClick={() =>
-            this.setState({
-              messageModalOpen: !this.state.messageModalOpen
-            })
-          }
-        >
-          <Icon type="message" />
-          <span>Message</span>
+        <Menu.Item key="1">
+          <MessageModalForm />
         </Menu.Item>
       </Menu>
     );
@@ -95,23 +80,15 @@ export default class CollapseSideBar extends Component {
       ? OWN_PROFILE_MENU_MARKUP
       : OTHER_PROFILE_MENU_MARKUP;
 
-    /* MODAL MARKUP */
-    let MODAL_MARKUP = null;
-    if (this.state.messageModalOpen)
-      MODAL_MARKUP = <SimpleModal visible={true} />;
-
     return (
-      <>
-        <Sider
-          collapsible
-          collapsed={this.state.collapsed}
-          onCollapse={this.onCollapse}
-          style={{ margin: "0 20px 0 10px" }}
-        >
-          {MENU_MARKUP}
-        </Sider>
-        {MODAL_MARKUP}
-      </>
+      <Sider
+        collapsible
+        collapsed={this.state.collapsed}
+        onCollapse={this.onCollapse}
+        style={{ margin: "0 20px 0 10px" }}
+      >
+        {MENU_MARKUP}
+      </Sider>
     );
   }
 }

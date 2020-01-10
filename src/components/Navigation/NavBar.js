@@ -60,26 +60,6 @@ export default function NavBar() {
   );
 }
 
-/*    <Container>
-      <Row>
-        <Col span={8}>
-          <Link to="/">INSERT LOGO</Link>
-        </Col>
-        <Col span={16}>
-          <Menu
-            mode="horizontal"
-            style={{
-              background: "inherit",
-              color: "wheat"
-            }}
-          >
-            {ITEMS_MARKUP}
-            <SimpleButton text="logout" onClick={logout} />
-          </Menu>
-        </Col>
-      </Row>
-    </Container> */
-
 const Container = styled.div`
   color: white;
 `;
