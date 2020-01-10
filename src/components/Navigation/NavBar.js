@@ -4,10 +4,6 @@ import styled from "styled-components";
 import { Menu } from "antd";
 import Cookies from "js-cookie";
 
-import { logout } from "../../data/logout";
-
-import SimpleButton from "../UI/SimpleButton";
-
 const data = [
   {
     title: "Login",
@@ -16,14 +12,20 @@ const data = [
     loggedIn: false
   },
   {
-    title: "Search",
-    link: "/search",
+    title: "Profile",
+    link: `profile/${Cookies.get("userID")}`,
     icon: undefined,
     loggedIn: true
   },
   {
-    title: "Profile",
-    link: `profile/${Cookies.get("userID")}`,
+    title: "Inbox",
+    link: `inbox/${Cookies.get("userID")}`,
+    icon: undefined,
+    loggedIn: true
+  },
+  {
+    title: "Search",
+    link: "/search",
     icon: undefined,
     loggedIn: true
   },
@@ -42,7 +44,9 @@ export default function NavBar() {
     if (v.loggedIn === USER_LOGGED_IN) {
       return (
         <Menu.Item key={i}>
-          <Link to={v.link}>{v.title}</Link>
+          <Link replace to={v.link}>
+            {v.title}
+          </Link>
         </Menu.Item>
       );
     }
@@ -59,9 +63,3 @@ export default function NavBar() {
     </Menu>
   );
 }
-
-const Container = styled.div`
-  color: white;
-`;
-
-const ButtonContainer = styled.div``;

@@ -71,7 +71,7 @@ export default class CollapseSideBar extends Component {
     const OTHER_PROFILE_MENU_MARKUP = (
       <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
         <Menu.Item key="1">
-          <MessageModalForm />
+          <MessageModalForm toUser={this.props.slug} />
         </Menu.Item>
       </Menu>
     );

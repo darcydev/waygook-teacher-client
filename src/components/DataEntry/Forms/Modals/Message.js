@@ -3,22 +3,33 @@ import { Modal, Form, Input, Icon } from "antd";
 import axios from "axios";
 import Cookies from "js-cookie";
 
+import Conversation from "../../../DataDisplay/Comments/Conversation";
+
 const { TextArea } = Input;
 
 const MessageForm = Form.create({ name: "message-form" })(
   // eslint-disable-next-line
   class extends React.Component {
     render() {
-      const { visible, onCancel, onCreate, form } = this.props;
+      const {
+        visible,
+        onCancel,
+        onCreate,
+        form,
+        toUser,
+        conversationData
+      } = this.props;
       const { getFieldDecorator } = form;
       return (
         <Modal
           visible={visible}
-          title="Send a message"
+          title="Conversation"
           okText={<Icon type="rocket" rotate={45} />}
           onCancel={onCancel}
           onOk={onCreate}
+          toUser={toUser}
         >
+          <Conversation data={conversationData} />
           <Form layout="vertical">
             <Form.Item>
               {getFieldDecorator("message", {
@@ -37,8 +48,13 @@ const MessageForm = Form.create({ name: "message-form" })(
 
 export class MessageModalForm extends React.Component {
   state = {
-    visible: false
+    visible: false,
+    conversationData: []
   };
+
+  componentDidMount() {
+    this.fetchConversation();
+  }
 
   showModal = () => this.setState({ visible: true });
   handleCancel = () => this.setState({ visible: false });
@@ -55,17 +71,37 @@ export class MessageModalForm extends React.Component {
     });
   };
 
+  fetchConversation() {
+    axios({
+      method: "POST",
+      url: "http://localhost:3002/conversation.php",
+      data: {
+        fromUser: Cookies.get("email"),
+        toUser: this.props.toUser
+      }
+    }).then((response) => {
+      this.setState({ conversationData: response.data });
+    });
+  }
+
   send(values) {
     axios({
       method: "POST",
       url: "http://localhost:3002/sendMessage.php",
-      data: { message: values.message, fromUser: Cookies.get("email") }
+      data: {
+        message: values.message,
+        fromUser: Cookies.get("email"),
+        toUser: this.props.toUser
+      }
     }).then((response) => {
-      console.log(response);
+      // TODO: show success/fail message - currently it's silent!
+      console.log(response.data);
     });
   }
 
   render() {
+    console.log("Message State", this.state);
+
     return (
       <>
         <Icon type="message" onClick={this.showModal} />
@@ -75,6 +111,8 @@ export class MessageModalForm extends React.Component {
           visible={this.state.visible}
           onCancel={this.handleCancel}
           onCreate={this.handleCreate}
+          toUser={this.props.toUser}
+          conversationData={this.state.conversationData}
         />
       </>
     );

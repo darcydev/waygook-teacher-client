@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 import media from "styled-media-query";
 import axios from "axios";
+import Cookies from "js-cookie";
 import { Row, Col, Card, Icon, Avatar, Layout, Rate, Statistic } from "antd";
 
 import PageHeading from "../components/DataDisplay/Headings/PageHeading";

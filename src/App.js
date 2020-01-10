@@ -10,6 +10,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Search from "./pages/Search";
 import Profile from "./pages/Profile";
+import Inbox from "./pages/Inbox";
 import Logout from "./pages/Logout";
 
 import NavBar from "./components/Navigation/NavBar";
@@ -20,17 +21,6 @@ export default function App() {
   const USER_LOGGED_IN = Cookies.get("email") ? true : false;
 
   console.log(`user logged in: ${USER_LOGGED_IN}`);
-
-  const MARKUP = (
-    <>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/register" component={Register} />
-      <Route exact path="/logout" component={Logout} />
-      <Route exact path="/search" component={Search} />
-      <Route exact path="/profile/:slug" component={Profile} />
-    </>
-  );
 
   return (
     <div className="App">
@@ -44,7 +34,15 @@ export default function App() {
           <NavBar />
         </Header>
         <Content style={{ minHeight: "90vh" }}>
-          <Switch>{MARKUP}</Switch>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/logout" component={Logout} />
+            <Route exact path="/search" component={Search} />
+            <Route exact path="/profile/:slug" component={Profile} />
+            <Route exact path="/inbox/:slug" component={Inbox} />
+          </Switch>
         </Content>
         <Footer
           style={{
