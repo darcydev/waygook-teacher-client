@@ -1,39 +1,39 @@
-import React from "react";
-import { Route, Switch } from "react-router-dom";
-import { Layout } from "antd";
-import Cookies from "js-cookie";
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { Layout } from 'antd';
+import Cookies from 'js-cookie';
 
-import "antd/dist/antd.css";
+import 'antd/dist/antd.css';
 
-import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import Search from "./pages/Search";
-import Profile from "./pages/Profile";
-import Inbox from "./pages/Inbox";
-import Logout from "./pages/Logout";
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import Search from './pages/Search';
+import Profile from './pages/Profile';
+import Inbox from './pages/Inbox';
+import Logout from './pages/Logout';
 
-import NavBar from "./components/Navigation/NavBar";
+import NavBar from './components/Navigation/NavBar';
 
 const { Header, Content, Footer } = Layout;
 
 export default function App() {
-  const USER_LOGGED_IN = Cookies.get("email") ? true : false;
+  const USER_LOGGED_IN = Cookies.get('email') ? true : false;
 
   console.log(`user logged in: ${USER_LOGGED_IN}`);
 
   return (
     <div className="App">
       <Layout>
-        <Header style={{ display: "flex" }}>
+        <Header style={{ display: 'flex' }}>
           <img
             src="https://avatarfiles.alphacoders.com/162/162739.jpg"
             alt="logo"
-            style={{ maxWidth: "50px", maxHeight: "50px", alignSelf: "center" }}
+            style={{ maxWidth: '50px', maxHeight: '50px', alignSelf: 'center' }}
           />
           <NavBar />
         </Header>
-        <Content style={{ minHeight: "90vh" }}>
+        <Content style={{ minHeight: '90vh' }}>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
@@ -46,8 +46,8 @@ export default function App() {
         </Content>
         <Footer
           style={{
-            minHeight: "100px",
-            background: "#001529"
+            minHeight: '100px',
+            background: '#001529'
           }}
         >
           Footer

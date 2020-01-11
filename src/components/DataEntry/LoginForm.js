@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import Cookies from "js-cookie";
-import { Form, Input, Icon } from "antd";
-import styled from "styled-components";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { Form, Input, Icon } from 'antd';
+import styled from 'styled-components';
 
-import FormButton from "../UI/FormButton";
+import FormButton from '../UI/FormButton';
 
-import { checkUserLoggedIn } from "../../data/login";
+import { checkUserLoggedIn } from '../../data/login';
 
 export default class LoginForm extends Component {
   state = {
@@ -18,32 +18,28 @@ export default class LoginForm extends Component {
 
   login(values) {
     axios({
-      method: "POST",
-      url: "http://localhost:3002/login.php",
+      method: 'POST',
+      url: 'http://localhost:3002/login.php',
       data: values
-    }).then((response) => {
+    }).then(response => {
       if (!response.data.success)
         this.setState({ success: false, loggedIn: false });
       else if (response.data.success) {
-        Cookies.set("email", values.email);
-        Cookies.set("userID", response.data.userID);
+        Cookies.set('email', values.email);
+        Cookies.set('userID', response.data.userID);
         this.setState({ success: true, loggedIn: true });
         window.location.reload();
       }
     });
   }
 
-  handleSubmit = (e) => {
+  handleSubmit = e => {
     e.preventDefault();
 
     this.setState({ loading: true });
 
     this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log("Received values of form: ", values);
-
-        this.login(values);
-      }
+      if (!err) this.login(values);
     });
   };
 
@@ -53,17 +49,17 @@ export default class LoginForm extends Component {
     const FORM_BUTTON_TEXT = () => {
       if (this.state.loggedIn)
         return <Icon type="check-circle" theme="twoTone" />;
-      else return "Login";
+      else return 'Login';
     };
 
     return (
       <Container>
         <Form onSubmit={this.handleSubmit} className="login-form">
           <Form.Item>
-            {getFieldDecorator("email", {
+            {getFieldDecorator('email', {
               rules: [
                 {
-                  type: "email"
+                  type: 'email'
                 },
                 {
                   required: true
@@ -72,14 +68,14 @@ export default class LoginForm extends Component {
             })(<Input placeholder="Email" />)}
           </Form.Item>
           <Form.Item>
-            {getFieldDecorator("password", {
+            {getFieldDecorator('password', {
               rules: [{ required: true }]
             })(<Input type="password" placeholder="Password" />)}
           </Form.Item>
           <Form.Item>
             <FormButton
               text={FORM_BUTTON_TEXT()}
-              styles={{ minWidth: "30px" }}
+              styles={{ minWidth: '30px' }}
             />
             Not a member? <Link to="/register">Register</Link>
           </Form.Item>

@@ -1,21 +1,21 @@
-import React from "react";
-import { Comment, List } from "antd";
+import React from 'react';
+import { Comment, List } from 'antd';
+import TimeAgo from 'react-timeago';
 
-export default function Conversation({ data }) {
+export default function Conversation({ data, usersData }) {
   // init the data
   const DATA = new Array(data.length);
-  const LOADING_MARKUP = null;
+  const LOADING_MARKUP = [];
 
   const DATA_MARKUP =
     data.length > 0
       ? data.map(
           (v, i) =>
             (DATA[i] = {
-              author: v.from_user_id, // TODO convert to name
-              avatar:
-                "https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png", // TODO get profile pic
+              author: usersData[v.from_user_id].first_name,
+              avatar: usersData[v.from_user_id].profile_pic,
               content: <p>{v.message_content}</p>,
-              datetime: v.date // TODO convert to '2 days ago' format
+              datetime: <TimeAgo date={v.date} />
             })
         )
       : LOADING_MARKUP;
@@ -26,7 +26,7 @@ export default function Conversation({ data }) {
       header={`${data.length} replies`}
       itemLayout="horizontal"
       dataSource={DATA_MARKUP}
-      renderItem={(item) => (
+      renderItem={item => (
         <li>
           <Comment
             author={item.author}

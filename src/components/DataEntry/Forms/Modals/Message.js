@@ -1,13 +1,13 @@
-import React from "react";
-import { Modal, Form, Input, Icon } from "antd";
-import axios from "axios";
-import Cookies from "js-cookie";
+import React from 'react';
+import { Modal, Form, Input, Icon } from 'antd';
+import axios from 'axios';
+import Cookies from 'js-cookie';
 
-import Conversation from "../../../DataDisplay/Comments/Conversation";
+import Conversation from '../../../DataDisplay/Comments/Conversation';
 
 const { TextArea } = Input;
 
-const MessageForm = Form.create({ name: "message-form" })(
+const MessageForm = Form.create({ name: 'message-form' })(
   // eslint-disable-next-line
   class extends React.Component {
     render() {
@@ -17,7 +17,8 @@ const MessageForm = Form.create({ name: "message-form" })(
         onCreate,
         form,
         toUser,
-        conversationData
+        conversationData,
+        usersData
       } = this.props;
       const { getFieldDecorator } = form;
       return (
@@ -29,13 +30,13 @@ const MessageForm = Form.create({ name: "message-form" })(
           onOk={onCreate}
           toUser={toUser}
         >
-          <Conversation data={conversationData} />
+          <Conversation data={conversationData} usersData={usersData} />
           <Form layout="vertical">
             <Form.Item>
-              {getFieldDecorator("message", {
+              {getFieldDecorator('message', {
                 rules: [
-                  { required: true, message: "Required" },
-                  { max: 4999, message: "must be less than 5000 characters" }
+                  { required: true, message: 'Required' },
+                  { max: 4999, message: 'must be less than 5000 characters' }
                 ]
               })(<TextArea rows={6} />)}
             </Form.Item>
@@ -49,7 +50,7 @@ const MessageForm = Form.create({ name: "message-form" })(
 export class MessageModalForm extends React.Component {
   state = {
     visible: false,
-    conversationData: []
+    usersData: {}
   };
 
   componentDidMount() {
@@ -58,13 +59,13 @@ export class MessageModalForm extends React.Component {
 
   showModal = () => this.setState({ visible: true });
   handleCancel = () => this.setState({ visible: false });
-  saveFormRef = (formRef) => (this.formRef = formRef);
+  saveFormRef = formRef => (this.formRef = formRef);
   handleCreate = () => {
     const { form } = this.formRef.props;
     form.validateFields((err, values) => {
       if (err) return;
 
-      console.log("Received values of message form: ", values);
+      console.log('Received values of message form: ', values);
       this.send(values);
       form.resetFields();
       this.setState({ visible: false });
@@ -73,34 +74,48 @@ export class MessageModalForm extends React.Component {
 
   fetchConversation() {
     axios({
-      method: "POST",
-      url: "http://localhost:3002/conversation.php",
+      method: 'POST',
+      url: 'http://localhost:3002/conversation.php',
       data: {
-        fromUser: Cookies.get("email"),
+        fromUser: Cookies.get('email'),
         toUser: this.props.toUser
       }
-    }).then((response) => {
-      this.setState({ conversationData: response.data });
-    });
+    })
+      .then(response => {
+        // convert the two User's objects into a single object, with the
+        // key being the userID and the values being the values
+        // fetched from the db
+        const usersObj = {};
+        const id1 = response.data.thisUser.userID;
+        const id2 = response.data.otherUser.userID;
+        usersObj[id1] = response.data.thisUser;
+        usersObj[id2] = response.data.otherUser;
+
+        this.setState({
+          conversationData: response.data.conversation,
+          usersData: usersObj
+        });
+      })
+      .catch(e => console.error(e));
   }
 
   send(values) {
     axios({
-      method: "POST",
-      url: "http://localhost:3002/sendMessage.php",
+      method: 'POST',
+      url: 'http://localhost:3002/sendMessage.php',
       data: {
         message: values.message,
-        fromUser: Cookies.get("email"),
+        fromUser: Cookies.get('email'),
         toUser: this.props.toUser
       }
-    }).then((response) => {
+    }).then(response => {
       // TODO: show success/fail message - currently it's silent!
       console.log(response.data);
     });
   }
 
   render() {
-    console.log("Message State", this.state);
+    // console.log('Message State', this.state);
 
     return (
       <>
@@ -113,6 +128,7 @@ export class MessageModalForm extends React.Component {
           onCreate={this.handleCreate}
           toUser={this.props.toUser}
           conversationData={this.state.conversationData}
+          usersData={this.state.usersData}
         />
       </>
     );
