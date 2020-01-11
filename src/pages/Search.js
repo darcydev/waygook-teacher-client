@@ -1,12 +1,12 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import { Card, Icon, Avatar, Select, Slider } from "antd";
-import { Link, Redirect } from "react-router-dom";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import { Card, Icon, Avatar, Select, Slider } from 'antd';
+import { Link, Redirect } from 'react-router-dom';
 
-import axios from "axios";
+import axios from 'axios';
 
-import PageHeading from "../components/DataDisplay/Headings/PageHeading";
-import IconWithText from "../components/DataDisplay/IconWithText";
+import PageHeading from '../components/DataDisplay/Headings/PageHeading';
+import IconWithText from '../components/DataDisplay/IconWithText';
 
 const { Option } = Select;
 const { Meta } = Card;
@@ -15,25 +15,25 @@ const dummyData = [
   {
     userID: -1,
     profile_pic:
-      "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+      'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
     flagSrc:
-      "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png",
-    first_name: "Michael Douglas"
+      'https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png',
+    first_name: 'Michael Douglas'
   },
   {
     userID: -2,
     profile_pic:
-      "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+      'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
     flagSrc:
-      "https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png",
-    first_name: "Michael Douglas"
+      'https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png',
+    first_name: 'Michael Douglas'
   },
   {
     userID: -3,
     profile_pic:
-      "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-    flagSrc: "images/flags/american-flag.png",
-    first_name: "Michael Douglas"
+      'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
+    flagSrc: 'images/flags/american-flag.png',
+    first_name: 'Michael Douglas'
   }
 ];
 
@@ -55,14 +55,14 @@ export default class Search extends Component {
   // TODO: update REST API to extract only matching profiles from DB (rather than doing it on the frontend)
   fetchTeachers = () => {
     axios({
-      method: "GET",
-      url: "http://localhost:3002/users.php"
-    }).then((response) => {
+      method: 'GET',
+      url: `${localStorage.getItem('API_BASE_URL')}/users.php`
+    }).then(response => {
       this.setState({ users: response.data });
     });
   };
 
-  calculateAge = (DOB) => {
+  calculateAge = DOB => {
     const today = new Date();
     const birthDate = new Date(DOB);
 
@@ -74,10 +74,9 @@ export default class Search extends Component {
     return age;
   };
 
-  onNationFilter = (value) => this.setState({ nation: value });
-  onAgeFilter = (value) =>
-    this.setState({ minAge: value[0], maxAge: value[1] });
-  onRateFilter = (value) =>
+  onNationFilter = value => this.setState({ nation: value });
+  onAgeFilter = value => this.setState({ minAge: value[0], maxAge: value[1] });
+  onRateFilter = value =>
     this.setState({ minRate: value[0], maxRate: value[1] });
 
   render() {
@@ -87,7 +86,7 @@ export default class Search extends Component {
 
     // calculate the min/max values for the slider bars
     let YOUNG, OLD, CHEAP, EXXY;
-    Object.values(this.state.users).forEach((v) => {
+    Object.values(this.state.users).forEach(v => {
       const AGE = this.calculateAge(v.DOB);
 
       if (!CHEAP || v.rate < CHEAP) CHEAP = Number(v.rate);
@@ -98,14 +97,14 @@ export default class Search extends Component {
 
     // FILTER MARKUPS
     const NATIONALITIES = [
-      "American",
-      "Australian",
-      "British",
-      "Korean",
-      "South_African",
-      "Canadian"
+      'American',
+      'Australian',
+      'British',
+      'Korean',
+      'South_African',
+      'Canadian'
     ];
-    const NATION_FILTER_MARKUP = NATIONALITIES.map((v) => (
+    const NATION_FILTER_MARKUP = NATIONALITIES.map(v => (
       <Option key={v.toLowerCase()}>{v}</Option>
     ));
 
@@ -132,7 +131,7 @@ export default class Search extends Component {
             <Card
               className="img-md img-responsive"
               key={v.userID === undefined ? `${i}: ${v}` : v.userID}
-              style={{ width: 300, marginBottom: "20px" }}
+              style={{ width: 300, marginBottom: '20px' }}
               cover={<img alt="profile" src={v.profile_pic} />}
             >
               <Meta
@@ -153,7 +152,7 @@ export default class Search extends Component {
         <FilterContainer>
           <Select
             mode="multiple"
-            style={{ width: "25%" }}
+            style={{ width: '25%' }}
             placeholder="Filter by nationality"
             onChange={this.onNationFilter}
           >

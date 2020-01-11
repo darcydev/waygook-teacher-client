@@ -1,15 +1,15 @@
-import React from "react";
-import { Modal, Form, Input, Icon, AutoComplete } from "antd";
-import cityTimezones from "city-timezones";
+import React from 'react';
+import { Modal, Form, Input, Icon, AutoComplete } from 'antd';
+import cityTimezones from 'city-timezones';
 
 const AutoCompleteOption = AutoComplete.Option;
 
-const SettingsForm = Form.create({ name: "settings-form" })(
+const SettingsForm = Form.create({ name: 'settings-form' })(
   // eslint-disable-next-line
   class extends React.Component {
     state = { autoCompleteTimezone: [] };
 
-    onCityChange = (value) => {
+    onCityChange = value => {
       const cityLookup = cityTimezones.lookupViaCity(value);
 
       if (cityLookup.length === 0) return;
@@ -21,28 +21,28 @@ const SettingsForm = Form.create({ name: "settings-form" })(
       const { getFieldDecorator } = form;
       const { autoCompleteTimezone } = this.state;
 
-      const timezoneOptions = autoCompleteTimezone.map((timezone) => (
+      const timezoneOptions = autoCompleteTimezone.map(timezone => (
         <AutoCompleteOption key={timezone}>{timezone}</AutoCompleteOption>
       ));
 
       return (
         <Modal
           visible={visible}
-          title="Send a message"
+          title="Update your profile"
           okText={<Icon type="rocket" rotate={45} />}
           onCancel={onCancel}
           onOk={onCreate}
         >
           <Form layout="vertical">
             <Form.Item label="Change first name">
-              {getFieldDecorator("first", {
+              {getFieldDecorator('first', {
                 rules: [
-                  { max: 4999, message: "must be less than 5000 characters" }
+                  { max: 4999, message: 'must be less than 5000 characters' }
                 ]
               })(<Input size="large" />)}
             </Form.Item>
             <Form.Item label="Timezone">
-              {getFieldDecorator("timezone")(
+              {getFieldDecorator('timezone')(
                 <AutoComplete
                   dataSource={timezoneOptions}
                   onChange={this.onCityChange}
@@ -67,14 +67,14 @@ export class SettingsModalForm extends React.Component {
 
   showModal = () => this.setState({ visible: true });
   handleCancel = () => this.setState({ visible: false });
-  saveFormRef = (formRef) => (this.formRef = formRef);
+  saveFormRef = formRef => (this.formRef = formRef);
 
   handleCreate = () => {
     const { form } = this.formRef.props;
     form.validateFields((err, values) => {
       if (err) return;
 
-      console.log("Received values of message form: ", values);
+      console.log('Received values of message form: ', values);
       form.resetFields();
       this.setState({ visible: false });
     });

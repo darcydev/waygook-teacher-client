@@ -1,9 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import styled from "styled-components";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import SimpleButton from "../components/UI/SimpleButton";
-import BlockQuote from "../components/DataDisplay/BlockQuote";
+import SimpleButton from '../components/UI/SimpleButton';
+import BlockQuote from '../components/DataDisplay/BlockQuote';
 
 export default function Home() {
   return (

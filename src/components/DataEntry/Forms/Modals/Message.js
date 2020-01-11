@@ -102,7 +102,7 @@ export class MessageModalForm extends React.Component {
   send(values) {
     axios({
       method: 'POST',
-      url: 'http://localhost:3002/sendMessage.php',
+      url: `${localStorage.getItem('API_BASE_URL')}/sendMessage.php`,
       data: {
         message: values.message,
         fromUser: Cookies.get('email'),

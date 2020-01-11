@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import styled from "styled-components";
-import media from "styled-media-query";
-import axios from "axios";
-import Cookies from "js-cookie";
-import { Row, Col, Card, Icon, Avatar, Layout, Rate, Statistic } from "antd";
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import media from 'styled-media-query';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+import { Row, Col, Card, Icon, Avatar, Layout, Rate, Statistic } from 'antd';
 
-import PageHeading from "../components/DataDisplay/Headings/PageHeading";
-import IconWithText from "../components/DataDisplay/IconWithText";
+import PageHeading from '../components/DataDisplay/Headings/PageHeading';
+import IconWithText from '../components/DataDisplay/IconWithText';
 
-import CollapseSideBar from "../sections/CollapseSideBar";
+import CollapseSideBar from '../sections/CollapseSideBar';
 
 const { Content } = Layout;
 const { Meta } = Card;
@@ -23,21 +23,21 @@ export default class Profile extends Component {
     this.fetchProfile(this.props.match.params.slug);
   }
 
-  fetchProfile = (userID) => {
+  fetchProfile = userID => {
     axios({
-      method: "POST",
-      url: "http://localhost:3002/profile.php",
+      method: 'POST',
+      url: `${localStorage.getItem('API_BASE_URL')}/profile.php`,
       data: { userID: userID },
       params: {
         userID
       }
-    }).then((response) => {
+    }).then(response => {
       this.setState({ user: response.data });
     });
   };
 
   render() {
-    console.log("Profile State", this.state);
+    console.log('Profile State', this.state);
 
     const {
       first_name,
@@ -87,10 +87,10 @@ export default class Profile extends Component {
           <CollapseSideBar slug={this.props.match.params.slug} />
           <Content className="content">
             <Row className="row-first">
-              <Col style={{ maxWidth: "100%" }}>
+              <Col style={{ maxWidth: '100%' }}>
                 <Card
                   className="img-md img-responsive"
-                  style={{ width: 300, marginBottom: "20px", maxWidth: "100%" }}
+                  style={{ width: 300, marginBottom: '20px', maxWidth: '100%' }}
                   cover={<img src={profile_pic} alt="profile" />}
                 >
                   <Meta
@@ -102,7 +102,7 @@ export default class Profile extends Component {
                   />
                 </Card>
               </Col>
-              <Col style={{ maxWidth: "100%" }}>{description}</Col>
+              <Col style={{ maxWidth: '100%' }}>{description}</Col>
             </Row>
             <Row></Row>
           </Content>
@@ -116,7 +116,7 @@ const Container = styled.div`
   .row-first {
     display: flex;
 
-    ${media.lessThan("small")`
+    ${media.lessThan('small')`
       flex-direction: column;
       align-items: center;
       text-align: center;

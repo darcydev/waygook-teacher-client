@@ -30,8 +30,6 @@ export default class Inbox extends Component {
       url: 'http://localhost:3002/inbox.php',
       data: { userEmail: Cookies.get('email') }
     }).then(response => {
-      // console.log(response.data);
-
       // create an object for each otherUser
       const otherUsersObj = response.data.otherUsers.reduce(
         (r, c) => (
@@ -54,7 +52,7 @@ export default class Inbox extends Component {
   };
 
   render() {
-    console.log('Inbox State', this.state);
+    // console.log('Inbox State', this.state);
 
     const { conversations, otherUserData } = this.state;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Menu } from 'antd';
 import Cookies from 'js-cookie';
 
@@ -42,10 +42,10 @@ export default function NavBar() {
   const MENU_ITEMS = data.map((v, i) => {
     if (v.loggedIn === USER_LOGGED_IN) {
       return (
-        <Menu.Item key={i}>
-          <Link replace to={v.link}>
+        <Menu.Item key={v.title}>
+          <NavLink replace to={v.link}>
             {v.title}
-          </Link>
+          </NavLink>
         </Menu.Item>
       );
     }

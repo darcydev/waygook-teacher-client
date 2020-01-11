@@ -20,8 +20,6 @@ const { Header, Content, Footer } = Layout;
 export default function App() {
   const USER_LOGGED_IN = Cookies.get('email') ? true : false;
 
-  console.log(`user logged in: ${USER_LOGGED_IN}`);
-
   return (
     <div className="App">
       <Layout>
