@@ -8,7 +8,7 @@ import App from './App';
 
 import * as serviceWorker from './serviceWorker';
 
-localStorage.setItem('API_BASE_URL', 'http://127.0.0.1:8080');
+localStorage.setItem('API_BASE_URL', 'http://waygookteacher.com/api');
 
 ReactDOM.render(
   <Router>

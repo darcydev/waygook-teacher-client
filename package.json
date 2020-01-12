@@ -1,5 +1,6 @@
 {
   "name": "waygook-teacher-client",
+  "homepage": "http://waygookteacher.com",
   "version": "0.2.0",
   "private": true,
   "dependencies": {
