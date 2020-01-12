@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import media from 'styled-media-query';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Row, Col, Icon, Avatar, Layout, Table } from 'antd';
@@ -27,7 +26,7 @@ export default class Inbox extends Component {
   fetchConversations = () => {
     axios({
       method: 'POST',
-      url: 'http://localhost:3002/inbox.php',
+      url: `${localStorage.getItem('API_BASE_URL')}/inbox.php`,
       data: { userEmail: Cookies.get('email') }
     }).then(response => {
       // create an object for each otherUser

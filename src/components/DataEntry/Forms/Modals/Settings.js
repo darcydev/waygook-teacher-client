@@ -1,8 +1,23 @@
 import React from 'react';
-import { Modal, Form, Input, Icon, AutoComplete } from 'antd';
+import {
+  Modal,
+  Form,
+  Input,
+  Icon,
+  AutoComplete,
+  Select,
+  Button,
+  Upload,
+  Progres
+} from 'antd';
 import cityTimezones from 'city-timezones';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
+import UploadFileButton from '../../../UI/Buttons/UploadFileButton';
 
 const AutoCompleteOption = AutoComplete.Option;
+const { Option } = Select;
 
 const SettingsForm = Form.create({ name: 'settings-form' })(
   // eslint-disable-next-line
@@ -14,6 +29,23 @@ const SettingsForm = Form.create({ name: 'settings-form' })(
 
       if (cityLookup.length === 0) return;
       else this.setState({ autoCompleteTimezone: [cityLookup[0].timezone] });
+    };
+
+    onFileUpload = e => {
+      axios({
+        method: 'POST',
+        url: `${localStorage.getItem('API_BASE_URL')}/uploadImage.php`,
+        data: e
+      }).then(response => {
+        console.log(response);
+      });
+    };
+
+    normFile = e => {
+      console.log('Upload event:', e);
+      if (Array.isArray(e)) return e;
+
+      return e && e.fileList;
     };
 
     render() {
@@ -34,12 +66,27 @@ const SettingsForm = Form.create({ name: 'settings-form' })(
           onOk={onCreate}
         >
           <Form layout="vertical">
-            <Form.Item label="Change first name">
-              {getFieldDecorator('first', {
+            <Form.Item label="Nationality">
+              {getFieldDecorator('nationality', {
                 rules: [
                   { max: 4999, message: 'must be less than 5000 characters' }
                 ]
-              })(<Input size="large" />)}
+              })(
+                <Select placeholder="Please select a country">
+                  <Option value="american">American</Option>
+                  <Option value="australian">Australian</Option>
+                  <Option value="british">British</Option>
+                  <Option value="canadian">Canadian</Option>
+                  <Option value="korean">South Korean</Option>
+                  <Option value="south_african">South African</Option>
+                </Select>
+              )}
+            </Form.Item>
+            <Form.Item label="Profile Picture">
+              {getFieldDecorator('upload', {
+                valuePropName: 'fileList',
+                getValueFromEvent: this.normFile
+              })(<UploadFileButton />)}
             </Form.Item>
             <Form.Item label="Timezone">
               {getFieldDecorator('timezone')(
@@ -62,23 +109,35 @@ const SettingsForm = Form.create({ name: 'settings-form' })(
 export class SettingsModalForm extends React.Component {
   state = {
     visible: false,
-    autoCompleteResult: []
+    autoCompleteResult: [],
+    success: false
   };
 
   showModal = () => this.setState({ visible: true });
   handleCancel = () => this.setState({ visible: false });
   saveFormRef = formRef => (this.formRef = formRef);
 
-  handleCreate = () => {
+  onFormSubmit = () => {
     const { form } = this.formRef.props;
     form.validateFields((err, values) => {
       if (err) return;
 
       console.log('Received values of message form: ', values);
+      this.changeSettings();
       form.resetFields();
       this.setState({ visible: false });
     });
   };
+
+  changeSettings(values) {
+    axios({
+      method: 'POST',
+      url: `${localStorage.getItem('API_BASE_URL')}/settings.php`,
+      data: values
+    }).then(response => {
+      console.log(response);
+    });
+  }
 
   render() {
     return (
@@ -89,7 +148,7 @@ export class SettingsModalForm extends React.Component {
           wrappedComponentRef={this.saveFormRef}
           visible={this.state.visible}
           onCancel={this.handleCancel}
-          onCreate={this.handleCreate}
+          onCreate={this.onFormSubmit}
         />
       </>
     );

@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { Icon, Layout, Menu } from "antd";
-import Cookies from "js-cookie";
+import React, { Component } from 'react';
+import { Icon, Layout, Menu } from 'antd';
+import Cookies from 'js-cookie';
 
-import { MessageModalForm } from "../components/DataEntry/Forms/Modals/Message";
-import { SettingsModalForm } from "../components/DataEntry/Forms/Modals/Settings";
+import { MessageModalForm } from '../components/DataEntry/Forms/Modals/Message';
+import { SettingsModalForm } from '../components/DataEntry/Forms/Modals/Settings';
 
 const { Sider } = Layout;
 
@@ -16,19 +16,19 @@ export default class CollapseSideBar extends Component {
   };
 
   componentDidMount() {
-    if (this.props.slug === Cookies.get("userID"))
+    if (this.props.slug === Cookies.get('userID'))
       this.setState({ ownProfile: true });
   }
 
-  onCollapse = (collapsed) => this.setState({ collapsed });
+  onCollapse = collapsed => this.setState({ collapsed });
 
-  saveFormRef = (formRef) => (this.formRef = formRef);
+  saveFormRef = formRef => (this.formRef = formRef);
 
   render() {
-    console.log("SideBar State", this.state);
+    // console.log("SideBar State", this.state);
 
     const OWN_PROFILE_MENU_MARKUP = (
-      <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
         <Menu.Item
           key="1"
           onClick={() =>
@@ -69,7 +69,7 @@ export default class CollapseSideBar extends Component {
     );
 
     const OTHER_PROFILE_MENU_MARKUP = (
-      <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
         <Menu.Item key="1">
           <MessageModalForm toUser={this.props.slug} />
         </Menu.Item>
@@ -85,7 +85,7 @@ export default class CollapseSideBar extends Component {
         collapsible
         collapsed={this.state.collapsed}
         onCollapse={this.onCollapse}
-        style={{ margin: "0 20px 0 10px" }}
+        style={{ margin: '0 20px 0 10px' }}
       >
         {MENU_MARKUP}
       </Sider>

@@ -37,7 +37,7 @@ export default class Profile extends Component {
   };
 
   render() {
-    console.log('Profile State', this.state);
+    // console.log('Profile State', this.state);
 
     const {
       first_name,
