@@ -19,7 +19,7 @@ export default class LoginForm extends Component {
   login(values) {
     axios({
       method: 'POST',
-      url: `${localStorage.getItem('API_BASE_URL')}/login.php`,
+      url: `${localStorage.getItem('API_BASE_URL')}/controllers/login.php`,
       data: values
     }).then(response => {
       if (!response.data.success)
