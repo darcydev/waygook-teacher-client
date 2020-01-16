@@ -75,7 +75,9 @@ export class MessageModalForm extends React.Component {
   fetchConversation() {
     axios({
       method: 'POST',
-      url: `${localStorage.getItem('API_BASE_URL')}/conversation.php`,
+      url: `${localStorage.getItem(
+        'API_BASE_URL'
+      )}/controllers/conversation.php`,
       data: {
         fromUser: Cookies.get('email'),
         toUser: this.props.toUser
@@ -102,7 +104,9 @@ export class MessageModalForm extends React.Component {
   send(values) {
     axios({
       method: 'POST',
-      url: `${localStorage.getItem('API_BASE_URL')}/sendMessage.php`,
+      url: `${localStorage.getItem(
+        'API_BASE_URL'
+      )}/controllers/sendMessage.php`,
       data: {
         message: values.message,
         fromUser: Cookies.get('email'),

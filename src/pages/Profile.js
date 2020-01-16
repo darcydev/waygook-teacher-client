@@ -26,11 +26,8 @@ export default class Profile extends Component {
   fetchProfile = userID => {
     axios({
       method: 'POST',
-      url: `${localStorage.getItem('API_BASE_URL')}/profile.php`,
-      data: { userID: userID },
-      params: {
-        userID
-      }
+      url: `${localStorage.getItem('API_BASE_URL')}/controllers/profile.php`,
+      data: { userID: userID }
     }).then(response => {
       this.setState({ user: response.data });
     });

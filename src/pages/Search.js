@@ -39,26 +39,25 @@ const dummyData = [
 
 export default class Search extends Component {
   state = {
+    teachers: [],
     nation: [],
     gender: [],
     minRate: Number.NEGATIVE_INFINITY,
     minAge: Number.NEGATIVE_INFINITY,
     maxRate: Number.POSITIVE_INFINITY,
-    maxAge: Number.POSITIVE_INFINITY,
-    users: [] // TODO: change to 'teachers'
+    maxAge: Number.POSITIVE_INFINITY
   };
 
   componentDidMount() {
     this.fetchTeachers();
   }
 
-  // TODO: update REST API to extract only matching profiles from DB (rather than doing it on the frontend)
   fetchTeachers = () => {
     axios({
       method: 'GET',
-      url: `${localStorage.getItem('API_BASE_URL')}/users.php`
+      url: `${localStorage.getItem('API_BASE_URL')}/controllers/teachers.php`
     }).then(response => {
-      this.setState({ users: response.data });
+      this.setState({ teachers: response.data });
     });
   };
 
@@ -80,13 +79,12 @@ export default class Search extends Component {
     this.setState({ minRate: value[0], maxRate: value[1] });
 
   render() {
-    console.log(this.state);
-
-    const data = this.state.users.length === 0 ? dummyData : this.state.users;
+    const data =
+      this.state.teachers.length === 0 ? dummyData : this.state.teachers;
 
     // calculate the min/max values for the slider bars
     let YOUNG, OLD, CHEAP, EXXY;
-    Object.values(this.state.users).forEach(v => {
+    Object.values(this.state.teachers).forEach(v => {
       const AGE = this.calculateAge(v.DOB);
 
       if (!CHEAP || v.rate < CHEAP) CHEAP = Number(v.rate);
@@ -108,10 +106,8 @@ export default class Search extends Component {
       <Option key={v.toLowerCase()}>{v}</Option>
     ));
 
-    // TODO should the filtering out of cards be done on the front or backend?
-    // I suspect front is easier (but more verbose), but back is more data efficient
+    // FILTER CHECKS
     const CARD_MARKUP = data.map((v, i) => {
-      // FILTER CHECKS
       // nationality
       if (
         this.state.nation.length !== 0 &&

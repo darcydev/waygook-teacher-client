@@ -34,7 +34,9 @@ const SettingsForm = Form.create({ name: 'settings-form' })(
     onFileUpload = e => {
       axios({
         method: 'POST',
-        url: `${localStorage.getItem('API_BASE_URL')}/uploadImage.php`,
+        url: `${localStorage.getItem(
+          'API_BASE_URL'
+        )}/controllers/uploadImage.php`,
         data: e
       }).then(response => {
         console.log(response);
@@ -132,7 +134,7 @@ export class SettingsModalForm extends React.Component {
   changeSettings(values) {
     axios({
       method: 'POST',
-      url: `${localStorage.getItem('API_BASE_URL')}/settings.php`,
+      url: `${localStorage.getItem('API_BASE_URL')}/controllers/settings.php`,
       data: values
     }).then(response => {
       console.log(response);

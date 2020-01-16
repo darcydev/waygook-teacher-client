@@ -30,7 +30,7 @@ export default class Register extends Component {
   register(values) {
     axios({
       method: 'POST',
-      url: `${localStorage.getItem('API_BASE_URL')}/register.php`,
+      url: `${localStorage.getItem('API_BASE_URL')}/controllers/register.php`,
       data: values
     })
       .then(response => {

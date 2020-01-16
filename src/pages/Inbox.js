@@ -26,8 +26,8 @@ export default class Inbox extends Component {
   fetchConversations = () => {
     axios({
       method: 'POST',
-      url: `${localStorage.getItem('API_BASE_URL')}/inbox.php`,
-      data: { userEmail: Cookies.get('email') }
+      url: `${localStorage.getItem('API_BASE_URL')}/controllers/inbox.php`,
+      data: { userID: Cookies.get('userID') }
     }).then(response => {
       // create an object for each otherUser
       const otherUsersObj = response.data.otherUsers.reduce(
