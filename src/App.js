@@ -48,7 +48,7 @@ export default function App() {
             background: '#001529'
           }}
         >
-          Footer
+          This is the footer!
         </Footer>
       </Layout>
     </div>

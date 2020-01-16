@@ -1,12 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import { Form } from "antd";
+import React from 'react';
+import styled from 'styled-components';
+import { Form } from 'antd';
 
-import LoginForm from "../components/DataEntry/LoginForm";
-import PageHeading from "../components/DataDisplay/Headings/PageHeading";
+import LoginForm from '../components/DataEntry/LoginForm';
+import PageHeading from '../components/DataDisplay/Headings/PageHeading';
 
 export default function Login() {
-  const WrappedLoginForm = Form.create({ name: "login" })(LoginForm);
+  const WrappedLoginForm = Form.create({ name: 'login' })(LoginForm);
 
   return (
     <Page className="page">

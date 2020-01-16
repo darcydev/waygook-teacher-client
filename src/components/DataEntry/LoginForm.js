@@ -26,9 +26,10 @@ export default class LoginForm extends Component {
         this.setState({ success: false, loggedIn: false });
       else if (response.data.success) {
         Cookies.set('email', values.email);
-        Cookies.set('userID', response.data.userID);
+        Cookies.set('userID', response.data.userID.userID);
         this.setState({ success: true, loggedIn: true });
-        window.location.reload();
+
+        window.location.href = '/';
       }
     });
   }

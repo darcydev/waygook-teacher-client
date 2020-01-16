@@ -39,6 +39,8 @@ const data = [
 export default function NavBar() {
   const USER_LOGGED_IN = Cookies.get('userID') > 0;
 
+  console.log(Cookies.get('userID'));
+
   const MENU_ITEMS = data.map((v, i) => {
     if (v.loggedIn === USER_LOGGED_IN) {
       return (

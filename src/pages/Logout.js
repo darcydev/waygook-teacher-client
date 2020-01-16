@@ -1,13 +1,13 @@
-import React from "react";
-import styled from "styled-components";
-import Cookies from "js-cookie";
+import React from 'react';
+import styled from 'styled-components';
+import Cookies from 'js-cookie';
 
 export default function Logout() {
-  if (Cookies.get("email")) Cookies.remove("email");
-  if (Cookies.get("userID")) {
-    Cookies.remove("userID");
+  if (Cookies.get('email')) Cookies.remove('email');
+  if (Cookies.get('userID')) {
+    Cookies.remove('userID');
 
-    window.location.reload();
+    window.location.href = '/';
   }
 
   return (
