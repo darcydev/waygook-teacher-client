@@ -10,7 +10,8 @@ export default function UploadFileButton() {
     const { onSuccess, onError, file, onProgress } = options;
 
     const fmData = new FormData();
-    const config = {
+
+    /*     const config = {
       headers: {
         'access-control-allow-origin': '*',
         'content-type': 'multipart/form-data'
@@ -23,29 +24,36 @@ export default function UploadFileButton() {
         }
         onProgress({ percent: (event.loaded / event.total) * 100 });
       }
-    };
-    fmData.append('image', file);
-    try {
-      const res = await axios.post(
-        `${localStorage.getItem('API_BASE_URL')}/uploadImage.php`,
-        fmData,
-        config
-      );
+    }; */
 
-      onSuccess('Ok');
-      console.log('server res: ', res);
-    } catch (err) {
-      console.log('Error: ', err);
-      const error = new Error('Some error');
-      onError({ err });
-    }
+    fmData.append('image', file);
+
+    axios({
+      method: 'POST',
+      url: `${localStorage.getItem(
+        'API_BASE_URL'
+      )}/controllers/uploadImage.php`,
+      data: fmData
+    })
+      .then(response => {
+        console.log(response);
+
+        onSuccess('Ok');
+
+        console.log('server res: ', response);
+      })
+      .catch(err => {
+        console.log('Error: ', err);
+
+        onError({ err });
+      });
   };
 
   const handleOnChange = ({ file, fileList, event }) => {
-    // console.log(file, fileList, event);
+    console.log(file, fileList, event);
     //Using Hooks to update the state to the current filelist
     setDefaultFileList(fileList);
-    //filelist - [{uid: "-1",url:'Some url to image'}]
+    // filelist - [{uid: "-1", url:'Some url to image'}]
   };
 
   return (
@@ -63,21 +71,4 @@ export default function UploadFileButton() {
       {progress > 0 ? <Progress percent={progress} /> : null}
     </div>
   );
-}
-
-{
-  /* <Upload
-name="picture"
-action={`${localStorage.getItem('API_BASE_URL')}/uploadImage.php`}
-headers={{
-  'Access-Control-Allow-Origin': '*'
-}}
-withCredentials
-listType="picture"
->
-<Button>
-  <Icon type="upload" />
-  Upload
-</Button>
-</Upload> */
 }
