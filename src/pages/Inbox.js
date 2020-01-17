@@ -29,6 +29,8 @@ export default class Inbox extends Component {
       url: `${localStorage.getItem('API_BASE_URL')}/controllers/inbox.php`,
       data: { userID: Cookies.get('userID') }
     }).then(response => {
+      console.log('Inbox API  response', response);
+
       // create an object for each otherUser
       const otherUsersObj = response.data.otherUsers.reduce(
         (r, c) => (
@@ -51,7 +53,7 @@ export default class Inbox extends Component {
   };
 
   render() {
-    // console.log('Inbox State', this.state);
+    console.log('Inbox State', this.state);
 
     const { conversations, otherUserData } = this.state;
 
@@ -63,7 +65,7 @@ export default class Inbox extends Component {
       conversations.map((v, i) => {
         const THIS_USER_ID = Cookies.get('userID');
         const OTHER_USER_ID =
-          v.to_user_id === THIS_USER_ID ? v.from_user_id : v.to_user_id;
+          v.to_user_id == THIS_USER_ID ? v.from_user_id : v.to_user_id;
 
         LOADED_MARKUP[i] = {
           key: i,

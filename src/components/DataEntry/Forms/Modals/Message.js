@@ -79,23 +79,25 @@ export class MessageModalForm extends React.Component {
         'API_BASE_URL'
       )}/controllers/conversation.php`,
       data: {
-        fromUser: Cookies.get('email'),
-        toUser: this.props.toUser
+        thisUserID: Cookies.get('userID'),
+        otherUserID: this.props.toUser
       }
     })
       .then(response => {
+        console.log('Message API response', response);
+
         // convert the two User's objects into a single object, with the
         // key being the userID and the values being the values
         // fetched from the db
-        const usersObj = {};
+        const userIDs = {};
         const id1 = response.data.thisUser.userID;
         const id2 = response.data.otherUser.userID;
-        usersObj[id1] = response.data.thisUser;
-        usersObj[id2] = response.data.otherUser;
+        userIDs[id1] = response.data.thisUser;
+        userIDs[id2] = response.data.otherUser;
 
         this.setState({
           conversationData: response.data.conversation,
-          usersData: usersObj
+          usersData: userIDs
         });
       })
       .catch(e => console.error(e));
@@ -119,7 +121,7 @@ export class MessageModalForm extends React.Component {
   }
 
   render() {
-    // console.log('Message State', this.state);
+    console.log('Message State', this.state);
 
     return (
       <>
