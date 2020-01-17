@@ -67,6 +67,8 @@ export default class Inbox extends Component {
         const OTHER_USER_ID =
           v.to_user_id == THIS_USER_ID ? v.from_user_id : v.to_user_id;
 
+        console.log(THIS_USER_ID, OTHER_USER_ID);
+
         LOADED_MARKUP[i] = {
           key: i,
           picture: otherUserData[OTHER_USER_ID].profilePic,
