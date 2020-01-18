@@ -4,10 +4,9 @@ import axios from 'axios';
 
 export default function UploadFileButton() {
   const [defaultFileList, setDefaultFileList] = useState([]);
-  const [progress, setProgress] = useState(0);
 
   const uploadImage = async options => {
-    const { onSuccess, onError, file, onProgress } = options;
+    const { onSuccess, onError, file } = options;
 
     const fmData = new FormData();
 
@@ -27,6 +26,8 @@ export default function UploadFileButton() {
     }; */
 
     fmData.append('image', file);
+
+    console.log(fmData);
 
     axios({
       method: 'POST',
@@ -68,7 +69,7 @@ export default function UploadFileButton() {
       >
         {defaultFileList.length >= 1 ? null : <div>Upload Button</div>}
       </Upload>
-      {progress > 0 ? <Progress percent={progress} /> : null}
+      {/*       {progress > 0 ? <Progress percent={progress} /> : null} */}
     </div>
   );
 }

@@ -13,6 +13,8 @@ import Profile from './pages/Profile';
 import Inbox from './pages/Inbox';
 import Logout from './pages/Logout';
 
+import CustomFooter from './sections/Footer';
+
 import NavBar from './components/Navigation/NavBar';
 
 const { Header, Content, Footer } = Layout;
@@ -42,13 +44,8 @@ export default function App() {
             <Route exact path="/inbox/:slug" component={Inbox} />
           </Switch>
         </Content>
-        <Footer
-          style={{
-            minHeight: '100px',
-            background: '#001529'
-          }}
-        >
-          This is the footer!
+        <Footer style={{ padding: 0 }}>
+          <CustomFooter />
         </Footer>
       </Layout>
     </div>

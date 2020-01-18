@@ -1,9 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Row, Col, Icon } from 'antd';
 
-import SimpleButton from '../components/UI/SimpleButton';
+import SectionHeading from '../components/DataDisplay/Headings/SectionHeading';
 import BlockQuote from '../components/DataDisplay/BlockQuote';
+import SimpleList from '../components/DataDisplay/Lists/SimpleList';
+import SimpleButton from '../components/UI/SimpleButton';
+import Process from '../components/Navigation/Steps/Process';
+import CarouselCards from '../components/DataDisplay/Carousel/CarouselCards';
 
 export default function Home() {
   return (
@@ -17,6 +22,7 @@ export default function Home() {
           <SimpleButton text="Start learning" />
         </Link>
       </section>
+      {/* QUOTE */}
       <section>
         <div className="container">
           <BlockQuote
@@ -26,11 +32,114 @@ export default function Home() {
           />
         </div>
       </section>
+      {/* ADVANTAGES */}
+      <section>
+        <div className="container">
+          <SectionHeading heading="Why join us?" />
+          <div className="content">
+            <Row type="flex" justify="center">
+              <Col span={12} style={{ alignSelf: 'center' }}>
+                <img src="images/education/class.png" alt="class" />
+              </Col>
+              <Col span={12}>
+                <SimpleList
+                  data={[
+                    {
+                      title: 'Expert teachers',
+                      icon: (
+                        <Icon
+                          type="check-circle"
+                          style={{ fontSize: '36px', color: '#f42f54' }}
+                        />
+                      ),
+                      content:
+                        'we verify teachers to ensure that you have the most professional teachers'
+                    },
+                    {
+                      title: 'Convenient learning',
+                      icon: (
+                        <Icon
+                          type="check-circle"
+                          style={{ fontSize: '36px', color: '#f42f54' }}
+                        />
+                      ),
+                      content:
+                        'take lessons over video anytime that suits you: at the office, or in the comfort of your home'
+                    },
+                    {
+                      title: 'Targeted learning',
+                      icon: (
+                        <Icon
+                          type="check-circle"
+                          style={{ fontSize: '36px', color: '#f42f54' }}
+                        />
+                      ),
+                      content:
+                        'Focus on the skills you need most, whether it be professional, educational or personal life'
+                    }
+                  ]}
+                />
+              </Col>
+            </Row>
+          </div>
+        </div>
+      </section>
+      {/* HOW IT WORKS */}
+      <section>
+        <div className="container">
+          <SectionHeading heading="How it works" />
+          <div className="content">
+            <Row type="flex" justify="center">
+              <Col span={12} style={{ alignSelf: 'center' }}>
+                <img src="images/education/class.png" alt="class" />
+              </Col>
+              <Col span={12}>
+                <Process
+                  direction="vertical"
+                  data={[
+                    {
+                      title: 'Search',
+                      description: 'Find your perfect teacher'
+                    },
+                    {
+                      title: 'Book a lesson',
+                      description: 'Schedule at a time that suits you best'
+                    },
+                    { title: 'Learn', description: 'Learn over video call' },
+                    { title: 'Review', description: 'Review your teacher' }
+                  ]}
+                />
+              </Col>
+            </Row>
+          </div>
+        </div>
+      </section>
+      {/* HOW IT WORKS */}
+      <section>
+        <div className="container">
+          <SectionHeading heading="How it works" />
+        </div>
+      </section>
+      {/* TESTIMONALS */}
+      <section>
+        <div className="container">
+          <SectionHeading heading="Testimonals" />
+          <CarouselContainer className="content">
+            <CarouselCards />
+          </CarouselContainer>
+        </div>
+      </section>
     </Page>
   );
 }
 
 const Page = styled.div``;
+
+const CarouselContainer = styled.div`
+  max-width: 500px;
+  text-align: center;
+  margin: auto;
+`;
 
 /* 
 
