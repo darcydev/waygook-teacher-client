@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import { Row, Col, Icon } from 'antd';
+import { Row, Col, Icon, Typography } from 'antd';
 
 import SectionHeading from '../components/DataDisplay/Headings/SectionHeading';
 import BlockQuote from '../components/DataDisplay/BlockQuote';
@@ -9,121 +9,152 @@ import SimpleList from '../components/DataDisplay/Lists/SimpleList';
 import SimpleButton from '../components/UI/SimpleButton';
 import Process from '../components/Navigation/Steps/Process';
 import CarouselCards from '../components/DataDisplay/Carousel/CarouselCards';
+import Banner from '../sections/Banner';
+
+const { Title } = Typography;
 
 export default function Home() {
   return (
-    <Page className="page">
+    <Page className="">
       <section className="hero">
-        <h1>Welcome to WaygookTeacher</h1>
-        <h5>
-          The platform to connect Korean students with expert English teachers
-        </h5>
-        <Link to="/register">
-          <SimpleButton text="Start learning" />
-        </Link>
+        <Row
+          className="content flex-container-md"
+          style={{ margin: 'auto', alignItems: 'center' }}
+        >
+          <Col span={12}>
+            <Title>WaygookTeacher</Title>
+            <Title level={4}>
+              The platform to connect Korean students with expert English
+              teachers
+            </Title>
+            <Link to="/register">
+              <SimpleButton text="Start learning" />
+            </Link>
+          </Col>
+          <Col span={12}>
+            <img src="images/education/class.png" alt="class" />
+          </Col>
+        </Row>
       </section>
       {/* QUOTE */}
-      <section>
-        <div className="container">
+      <Banner
+        content={
           <BlockQuote
+            styles={{ color: 'white' }}
             quote="Through my education, I didn't just develop skills, I didn't just
             develop the ability to learn, but I developed confidence."
             author="Michelle Obama"
           />
-        </div>
-      </section>
+        }
+      />
       {/* ADVANTAGES */}
       <section>
         <div className="container">
-          <SectionHeading heading="Why join us?" />
-          <div className="content">
-            <Row type="flex" justify="center">
-              <Col span={12} style={{ alignSelf: 'center' }}>
-                <img src="images/education/class.png" alt="class" />
-              </Col>
-              <Col span={12}>
-                <SimpleList
-                  data={[
-                    {
-                      title: 'Expert teachers',
-                      icon: (
-                        <Icon
-                          type="check-circle"
-                          style={{ fontSize: '36px', color: '#f42f54' }}
-                        />
-                      ),
-                      content:
-                        'we verify teachers to ensure that you have the most professional teachers'
-                    },
-                    {
-                      title: 'Convenient learning',
-                      icon: (
-                        <Icon
-                          type="check-circle"
-                          style={{ fontSize: '36px', color: '#f42f54' }}
-                        />
-                      ),
-                      content:
-                        'take lessons over video anytime that suits you: at the office, or in the comfort of your home'
-                    },
-                    {
-                      title: 'Targeted learning',
-                      icon: (
-                        <Icon
-                          type="check-circle"
-                          style={{ fontSize: '36px', color: '#f42f54' }}
-                        />
-                      ),
-                      content:
-                        'Focus on the skills you need most, whether it be professional, educational or personal life'
-                    }
-                  ]}
-                />
-              </Col>
-            </Row>
-          </div>
+          <SectionHeading
+            heading="Why join us?"
+            subHeading="The reasons to join WaygookTeacher"
+          />
+          <Row
+            className="content flex-container-md"
+            type="flex"
+            justify="center"
+          >
+            <Col span={12} style={{ alignSelf: 'center' }}>
+              <img src="images/education/class.png" alt="class" />
+            </Col>
+            <Col span={12} style={{ alignSelf: 'center', padding: '20px 0' }}>
+              <SimpleList
+                data={[
+                  {
+                    title: 'Expert teachers',
+                    icon: (
+                      <Icon
+                        type="check-circle"
+                        style={{ fontSize: '36px', color: '#f42f54' }}
+                      />
+                    ),
+                    content:
+                      'we verify teachers to ensure that you have the most professional teachers'
+                  },
+                  {
+                    title: 'Convenient learning',
+                    icon: (
+                      <Icon
+                        type="check-circle"
+                        style={{ fontSize: '36px', color: '#f42f54' }}
+                      />
+                    ),
+                    content:
+                      'take lessons over video anytime that suits you: at the office, or in the comfort of your home'
+                  },
+                  {
+                    title: 'Targeted learning',
+                    icon: (
+                      <Icon
+                        type="check-circle"
+                        style={{ fontSize: '36px', color: '#f42f54' }}
+                      />
+                    ),
+                    content:
+                      'Focus on the skills you need most, whether it be professional, educational or personal life'
+                  }
+                ]}
+              />
+            </Col>
+          </Row>
         </div>
       </section>
       {/* HOW IT WORKS */}
       <section>
         <div className="container">
           <SectionHeading heading="How it works" />
-          <div className="content">
-            <Row type="flex" justify="center">
-              <Col span={12} style={{ alignSelf: 'center' }}>
-                <img src="images/education/class.png" alt="class" />
-              </Col>
-              <Col span={12}>
-                <Process
-                  direction="vertical"
-                  data={[
-                    {
-                      title: 'Search',
-                      description: 'Find your perfect teacher'
-                    },
-                    {
-                      title: 'Book a lesson',
-                      description: 'Schedule at a time that suits you best'
-                    },
-                    { title: 'Learn', description: 'Learn over video call' },
-                    { title: 'Review', description: 'Review your teacher' }
-                  ]}
-                />
-              </Col>
-            </Row>
-          </div>
+          <Row
+            className="content flex-container-md"
+            type="flex"
+            justify="center"
+          >
+            <Col span={12} style={{ alignSelf: 'center' }}>
+              <img src="images/education/class.png" alt="class" />
+            </Col>
+            <Col span={12} style={{ alignSelf: 'center', padding: '20px 0' }}>
+              <Process
+                direction="vertical"
+                data={[
+                  {
+                    title: 'Search',
+                    description: 'Find your perfect teacher'
+                  },
+                  {
+                    title: 'Book a lesson',
+                    description: 'Schedule at a time that suits you best'
+                  },
+                  { title: 'Learn', description: 'Learn over video call' },
+                  { title: 'Review', description: 'Review your teacher' }
+                ]}
+              />
+            </Col>
+          </Row>
         </div>
       </section>
-      {/* HOW IT WORKS */}
-      <section>
-        <div className="container">
-          <SectionHeading heading="How it works" />
-        </div>
-      </section>
+      <Banner
+        content={
+          <>
+            <Title level={2} style={{ color: 'white' }}>
+              Still not convinced?
+            </Title>
+            <Link to="/register">
+              <SimpleButton text="Free lesson" />
+            </Link>
+          </>
+        }
+      />
       {/* TESTIMONALS */}
       <section>
         <div className="container">
-          <SectionHeading heading="Testimonals" />
+          <SectionHeading
+            heading="Testimonals"
+            subHeading="Our success stories"
+          />
           <CarouselContainer className="content">
             <CarouselCards />
           </CarouselContainer>

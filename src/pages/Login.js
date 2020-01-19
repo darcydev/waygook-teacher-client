@@ -4,13 +4,14 @@ import { Form } from 'antd';
 
 import LoginForm from '../components/DataEntry/LoginForm';
 import PageHeading from '../components/DataDisplay/Headings/PageHeading';
+import SectionHeading from '../components/DataDisplay/Headings/SectionHeading';
 
 export default function Login() {
   const WrappedLoginForm = Form.create({ name: 'login' })(LoginForm);
 
   return (
     <Page className="page">
-      <PageHeading heading="Login" />
+      <SectionHeading heading="Login" />
       <WrappedLoginForm />
     </Page>
   );

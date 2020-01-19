@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Typography } from 'antd';
+
+const { Title, Text } = Typography;
 
 export default function SectionHeading({
   heading = 'default heading',
@@ -8,8 +11,8 @@ export default function SectionHeading({
 }) {
   return (
     <Container>
-      <h2 title={backgroundHeading ? backgroundHeading : heading}>{heading}</h2>
-      <p>{subHeading}</p>
+      <Title level={1}>{heading}</Title>
+      <Text>{subHeading}</Text>
     </Container>
   );
 }

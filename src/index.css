@@ -38,6 +38,8 @@ h1 {
 /* CONTENT */
 .content {
   padding: 30px 10px;
+  max-width: 760px;
+  margin: auto;
 }
 
 /* IMAGES */

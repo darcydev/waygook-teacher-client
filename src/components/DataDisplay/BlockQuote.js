@@ -1,19 +1,22 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 export default function BlockQuote({
-  quote = "this is the default blockquote text",
+  styles = undefined,
+  quote = 'this is the default blockquote text',
   quoteStyles = undefined,
-  author = "Jones Smith III",
+  author = 'Jones Smith III',
   authorStyles = undefined
 }) {
   return (
-    <>
+    <Container style={styles}>
       <Quote quoteStyles={quoteStyles}>{quote}</Quote>
       <Author authorStyles={authorStyles}>- {author}</Author>
-    </>
+    </Container>
   );
 }
+
+const Container = styled.div``;
 
 const Quote = styled.blockquote``;
 

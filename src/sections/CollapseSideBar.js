@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Icon, Layout, Menu } from 'antd';
 import Cookies from 'js-cookie';
 
+import './CollapseSideBar.css';
+
 import { MessageModalForm } from '../components/DataEntry/Forms/Modals/Message';
 import { SettingsModalForm } from '../components/DataEntry/Forms/Modals/Settings';
 
