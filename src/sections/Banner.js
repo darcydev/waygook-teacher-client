@@ -11,11 +11,21 @@ export default function Banner({ content = defaultContent }) {
 
 // STYLES
 const Container = styled.div`
-  background: rgba(9, 9, 121, 1);
+  background: var(--dark);
   min-height: 170px;
 `;
 
-const Content = styled.div``;
+const Content = styled.div`
+  blockquote,
+  .title {
+    color: var(--textGrey);
+  }
+
+  p,
+  .subtitle {
+    color: var(--textWhite);
+  }
+`;
 
 // DEFAULT CONTENT
 const defaultContent = <h1>INSERT BANNER TEXT HERE</h1>;

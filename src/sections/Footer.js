@@ -57,7 +57,7 @@ export default function Footer({
 const Container = styled.div`
   text-align: center;
   color: white;
-  background-color: #000010;
+  background-color: #001529;
   padding-top: 30px;
 
   h6 {

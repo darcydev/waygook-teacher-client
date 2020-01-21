@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <div className="App">
-      <Layout>
+      <Layout style={{ background: 'var(--dark)' }}>
         <Header style={{ display: 'flex' }}>
           <img
             src="https://avatarfiles.alphacoders.com/162/162739.jpg"
@@ -33,7 +33,7 @@ export default function App() {
           />
           <NavBar />
         </Header>
-        <Content style={{ minHeight: '90vh' }}>
+        <Content style={{ minHeight: '90vh', background: 'var(--main)' }}>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
