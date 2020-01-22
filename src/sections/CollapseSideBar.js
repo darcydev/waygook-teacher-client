@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Icon, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
+import { CalculatorFill, WalletFill } from '@ant-design/icons';
 import Cookies from 'js-cookie';
 
 import './CollapseSideBar.css';
@@ -39,7 +40,7 @@ export default class CollapseSideBar extends Component {
             })
           }
         >
-          <Icon type="calendar" />
+          <CalculatorFill />
           <span>Calendar</span>
         </Menu.Item>
         <Menu.Item
@@ -50,7 +51,7 @@ export default class CollapseSideBar extends Component {
             })
           }
         >
-          <Icon type="calendar" />
+          <CalculatorFill />
           <span>Lessons</span>
         </Menu.Item>
         <Menu.Item
@@ -61,7 +62,7 @@ export default class CollapseSideBar extends Component {
             })
           }
         >
-          <Icon type="wallet" />
+          <WalletFill />
           <span>Wallet</span>
         </Menu.Item>
         <Menu.Item key="4">

@@ -3,7 +3,12 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Row, Col, Card, Icon, Avatar, Layout, Rate, Statistic } from 'antd';
+import { Row, Col, Card, Avatar, Layout, Rate, Statistic } from 'antd';
+import {
+  QuestionCircleFill,
+  DollarCircleFill,
+  HomeFill
+} from '@ant-design/icons';
 
 import PageHeading from '../components/DataDisplay/Headings/PageHeading';
 import IconWithText from '../components/DataDisplay/IconWithText';
@@ -61,19 +66,15 @@ export default class Profile extends Component {
         <Statistic
           title="Education Level"
           value={education_level}
-          prefix={<Icon type="question" />}
+          prefix={<QuestionCircleFill />}
         />
-        <Statistic title="Rate" value={rate} prefix={<Icon type="dollar" />} />
+        <Statistic title="Rate" value={rate} prefix={<DollarCircleFill />} />
         <Statistic
           title="Lessons"
           value={lesson_hours}
-          prefix={<Icon type="dollar" />}
+          prefix={<DollarCircleFill />}
         />
-        <Statistic
-          title="Timezone"
-          value={timezone}
-          prefix={<Icon type="home" />}
-        />
+        <Statistic title="Timezone" value={timezone} prefix={<HomeFill />} />
         <Rate disabled allowHalf={true} defaultValue={4.5} />
       </ul>
     );

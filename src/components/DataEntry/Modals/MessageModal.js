@@ -1,13 +1,83 @@
-import React from 'react';
+/* ANTD V4 */
+
+import React, { Component } from 'react';
+import { Modal } from 'antd';
+import { RocketFill } from '@ant-design/icons';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Modal, Form, Input } from 'antd';
-import { MessageFill, RocketFill } from '@ant-design/icons';
 
+import MessageForm from '../Forms/MessageForm';
 import Conversation from '../../../DataDisplay/Comments/Conversation';
 
-const { TextArea } = Input;
+export class MessageModal extends Component() {
+  state = {
+    visible: false,
+    usersData: {}
+  };
 
+  componentDidMount() {
+    this.fetchConversation();
+  }
+
+  showModal = () => this.setState({ visible: true });
+  handleCancel = () => this.setState({ visible: false });
+
+  fetchConversation() {
+    axios({
+      method: 'POST',
+      url: `${localStorage.getItem(
+        'API_BASE_URL'
+      )}/controllers/conversation.php`,
+      data: {
+        thisUserID: Cookies.get('userID'),
+        otherUserID: this.props.toUser
+      }
+    })
+      .then(response => {
+        console.log('Message API response', response);
+
+        // convert the two User's objects into a single object, with the
+        // key being the userID and the values being the values
+        // fetched from the db
+        const userIDs = {};
+        const id1 = response.data.thisUser.userID;
+        const id2 = response.data.otherUser.userID;
+        userIDs[id1] = response.data.thisUser;
+        userIDs[id2] = response.data.otherUser;
+
+        this.setState({
+          conversationData: response.data.conversation,
+          usersData: userIDs
+        });
+      })
+      .catch(e => console.error(e));
+  }
+
+  render() {
+    console.log('Message State', this.state);
+    const { conversationData, usersData } = this.props;
+
+    return (
+      <>
+        <Icon type="message" onClick={this.showModal} />
+
+        <Modal
+          visible={visible}
+          title="Conversation"
+          okText={<RocketFill rotate={45} />}
+          onCancel={onCancel}
+          onOk={onCreate}
+          toUser={toUser}
+        >
+          <Conversation data={conversationData} usersData={usersData} />
+          <MessageForm />
+        </Modal>
+      </>
+    );
+  }
+}
+
+/* 
 const MessageForm = Form.create({ name: 'message-form' })(
   // eslint-disable-next-line
   class extends React.Component {
@@ -26,7 +96,7 @@ const MessageForm = Form.create({ name: 'message-form' })(
         <Modal
           visible={visible}
           title="Conversation"
-          okText={<RocketFill rotate={45} />}
+          okText={<Icon type="rocket" rotate={45} />}
           onCancel={onCancel}
           onOk={onCreate}
           toUser={toUser}
@@ -126,7 +196,7 @@ export class MessageModalForm extends React.Component {
 
     return (
       <>
-        <MessageFill onClick={this.showModal} />
+        <Icon type="message" onClick={this.showModal} />
         <span>Message</span>
         <MessageForm
           wrappedComponentRef={this.saveFormRef}
@@ -140,4 +210,4 @@ export class MessageModalForm extends React.Component {
       </>
     );
   }
-}
+} */

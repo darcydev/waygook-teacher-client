@@ -1,10 +1,10 @@
-import React from "react";
-import styled from "styled-components";
-import { Icon } from "antd";
+import React from 'react';
+import styled from 'styled-components';
+import { QuestionCircleFill } from '@ant-design/icons';
 
 export default function IconWithText({
-  icon = <Icon type="question" />,
-  text = "Default text"
+  icon = <QuestionCircleFill />,
+  text = 'Default text'
 }) {
   return (
     <Container>

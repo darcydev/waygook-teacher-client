@@ -13,11 +13,10 @@ import Profile from './pages/Profile';
 import Inbox from './pages/Inbox';
 import Logout from './pages/Logout';
 
-import CustomFooter from './sections/Footer';
+import HeaderSection from './sections/Header';
+import FooterSection from './sections/Footer';
 
-import NavBar from './components/Navigation/NavBar';
-
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 export default function App() {
   const USER_LOGGED_IN = Cookies.get('email') ? true : false;
@@ -25,14 +24,7 @@ export default function App() {
   return (
     <div className="App">
       <Layout style={{ background: 'var(--dark)' }}>
-        <Header style={{ display: 'flex' }}>
-          <img
-            src="https://avatarfiles.alphacoders.com/162/162739.jpg"
-            alt="logo"
-            style={{ maxWidth: '50px', maxHeight: '50px', alignSelf: 'center' }}
-          />
-          <NavBar />
-        </Header>
+        <HeaderSection />
         <Content style={{ minHeight: '90vh', background: 'var(--main)' }}>
           <Switch>
             <Route exact path="/" component={Home} />
@@ -45,7 +37,7 @@ export default function App() {
           </Switch>
         </Content>
         <Footer style={{ padding: 0 }}>
-          <CustomFooter />
+          <FooterSection />
         </Footer>
       </Layout>
     </div>

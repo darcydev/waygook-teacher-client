@@ -1,18 +1,8 @@
 import React from 'react';
-import {
-  Modal,
-  Form,
-  Input,
-  Icon,
-  AutoComplete,
-  Select,
-  Button,
-  Upload,
-  Progres
-} from 'antd';
 import cityTimezones from 'city-timezones';
 import axios from 'axios';
-import Cookies from 'js-cookie';
+import { Modal, Form, Input, AutoComplete, Select } from 'antd';
+import { RocketFill, SettingFill } from '@ant-design/icons';
 
 import UploadFileButton from '../../../UI/Buttons/UploadFileButton';
 
@@ -63,7 +53,7 @@ const SettingsForm = Form.create({ name: 'settings-form' })(
         <Modal
           visible={visible}
           title="Update your profile"
-          okText={<Icon type="rocket" rotate={45} />}
+          okText={<RocketFill rotate={45} />}
           onCancel={onCancel}
           onOk={onCreate}
         >
@@ -144,7 +134,7 @@ export class SettingsModalForm extends React.Component {
   render() {
     return (
       <>
-        <Icon type="setting" onClick={this.showModal} />
+        <SettingFill onClick={this.showModal} />
         <span>Settings</span>
         <SettingsForm
           wrappedComponentRef={this.saveFormRef}

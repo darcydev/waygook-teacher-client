@@ -1,16 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import { Icon, Row, Col, Avatar } from 'antd';
-import { FaMapMarkerAlt, FaEnvelope, FaFacebookSquare } from 'react-icons/fa';
+import { Row, Col, Avatar } from 'antd';
+import {
+  HomeOutlined,
+  SettingFilled,
+  SmileOutlined,
+  SyncOutlined,
+  LoadingOutlined
+} from '@ant-design/icons';
 
+import Logo from '../components/Graphics/Logos/Logo';
 import SimpleList from '../components/DataDisplay/Lists/SimpleList';
 import SimpleButton from '../components/UI/SimpleButton';
 
 export default function Footer({
   id = undefined,
   classes = undefined,
-  logo = <Icon type="smile" theme="twoTone" />,
+  logo = <Logo />,
   companyName = 'Fake Company Name',
   companyYear = '2019',
   aboutCompanyText = 'Cillum qui non laborum laboris',
@@ -36,7 +43,9 @@ export default function Footer({
           <ColHeading>{companyName}</ColHeading>
           <h6>© {companyYear}</h6>
           <ListContainer>{REGISTRATION_MARKUP}</ListContainer>
-          <LogoContainer>{logo}</LogoContainer>
+          <LogoContainer>
+            <Logo />
+          </LogoContainer>
         </Col>
         <Col md={6} sm={12}>
           <SimpleList light={true} data={contactDetails} />

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Form, Input, Icon } from 'antd';
+import { Form, Input } from 'antd';
+import { AlertOutline, CheckCircle } from '@ant-design/icons';
 import styled from 'styled-components';
 
 import FormButton from '../UI/FormButton';
@@ -48,8 +49,7 @@ export default class LoginForm extends Component {
     const { getFieldDecorator } = this.props.form;
 
     const FORM_BUTTON_TEXT = () => {
-      if (this.state.loggedIn)
-        return <Icon type="check-circle" theme="twoTone" />;
+      if (this.state.loggedIn) return <AlertOutline />;
       else return 'Login';
     };
 

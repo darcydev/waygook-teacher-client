@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import { List, Icon } from 'antd';
+import { List } from 'antd';
+import { CheckCircleFill } from '@ant-design/icons';
 
 export default function SimpleList({
   itemLayout = 'horizontal',
@@ -58,22 +59,12 @@ const Container = styled.div`
 const defaultListData = [
   {
     title: 'Default list title',
-    icon: (
-      <Icon
-        type="check-circle"
-        style={{ fontSize: '36px', color: '#f42f54' }}
-      />
-    ),
+    icon: <CheckCircleFill style={{ fontSize: '36px', color: '#f42f54' }} />,
     content: 'Default list content 1'
   },
   {
     title: 'Default list title',
-    icon: (
-      <Icon
-        type="check-circle"
-        style={{ fontSize: '36px', color: '#f42f54' }}
-      />
-    ),
+    icon: <CheckCircleFill style={{ fontSize: '36px', color: '#f42f54' }} />,
     content: 'Default list content 2'
   }
 ];

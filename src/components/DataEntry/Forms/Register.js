@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { Form, Input, Select, Icon } from 'antd';
 import Cookies from 'js-cookie';
 import styled from 'styled-components';
+import { Form, Input, Select } from 'antd';
+import { CheckCircleFill } from '@ant-design/icons';
 
 import FormButton from '../../UI/FormButton';
 
@@ -47,11 +48,7 @@ export default class Register extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
 
-    const BUTTON_TEXT = this.state.success ? (
-      <Icon type="check-circle" />
-    ) : (
-      'Register'
-    );
+    const BUTTON_TEXT = this.state.success ? <CheckCircleFill /> : 'Register';
 
     return (
       <Form onSubmit={this.handleSubmit} className="register-form">
