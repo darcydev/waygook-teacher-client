@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { QuestionCircleFill } from '@ant-design/icons';
+import { QuestionCircleFilled } from '@ant-design/icons';
 
 export default function IconWithText({
-  icon = <QuestionCircleFill />,
+  icon = <QuestionCircleFilled />,
   text = 'Default text'
 }) {
   return (

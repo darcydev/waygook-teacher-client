@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Row, Col, Card, Typography } from 'antd';
-import { CheckCircleFill } from '@ant-design/icons';
+import { CheckCircleFilled } from '@ant-design/icons';
 
 import SectionHeading from '../components/DataDisplay/Headings/SectionHeading';
 import BlockQuote from '../components/DataDisplay/BlockQuote';
@@ -68,19 +68,19 @@ export default function Home() {
                 data={[
                   {
                     title: 'Expert teachers',
-                    icon: <CheckCircleFill />,
+                    icon: <CheckCircleFilled />,
                     content:
                       'we verify teachers to ensure that you have the most professional teachers'
                   },
                   {
                     title: 'Convenient learning',
-                    icon: <CheckCircleFill />,
+                    icon: <CheckCircleFilled />,
                     content:
                       'take lessons over video anytime that suits you: at the office, or in the comfort of your home'
                   },
                   {
                     title: 'Targeted learning',
-                    icon: <CheckCircleFill />,
+                    icon: <CheckCircleFilled />,
                     content:
                       'Focus on the skills you need most, whether it be professional, educational or personal life'
                   }

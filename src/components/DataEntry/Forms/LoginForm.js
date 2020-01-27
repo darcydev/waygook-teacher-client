@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Form, Input } from 'antd';
-import { AlertOutline, CheckCircle } from '@ant-design/icons';
 import styled from 'styled-components';
+import { Form, Input } from 'antd';
+import { CheckCircleFilled } from '@ant-design/icons';
 
-import FormButton from '../UI/FormButton';
+import FormButton from '../../UI/FormButton';
 
-import { checkUserLoggedIn } from '../../data/login';
+import { checkUserLoggedIn } from '../../../data/login';
 
 export default class LoginForm extends Component {
   state = {
@@ -35,43 +35,24 @@ export default class LoginForm extends Component {
     });
   }
 
-  handleSubmit = e => {
-    e.preventDefault();
-
+  handleSubmit = values => {
     this.setState({ loading: true });
-
-    this.props.form.validateFields((err, values) => {
-      if (!err) this.login(values);
-    });
+    this.login(values);
   };
 
   render() {
-    const { getFieldDecorator } = this.props.form;
+    const { loggedIn } = this.state;
 
-    const FORM_BUTTON_TEXT = () => {
-      if (this.state.loggedIn) return <AlertOutline />;
-      else return 'Login';
-    };
+    const FORM_BUTTON_TEXT = () => (loggedIn ? <CheckCircleFilled /> : 'Login');
 
     return (
       <Container>
-        <Form onSubmit={this.handleSubmit} className="login-form">
-          <Form.Item>
-            {getFieldDecorator('email', {
-              rules: [
-                {
-                  type: 'email'
-                },
-                {
-                  required: true
-                }
-              ]
-            })(<Input placeholder="Email" />)}
+        <Form onFinish={this.handleSubmit} className="login-form">
+          <Form.Item name="email" rules={[{ type: 'email', required: true }]}>
+            <Input placeholder="Email" />
           </Form.Item>
-          <Form.Item>
-            {getFieldDecorator('password', {
-              rules: [{ required: true }]
-            })(<Input type="password" placeholder="Password" />)}
+          <Form.Item name="password" rules={[{ required: true }]}>
+            <Input type="password" placeholder="Email" />
           </Form.Item>
           <Form.Item>
             <FormButton
