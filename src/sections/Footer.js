@@ -2,6 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import media from 'styled-media-query';
 import { Row, Col, Avatar } from 'antd';
+import {
+  HomeOutlined,
+  SettingFilled,
+  SmileOutlined,
+  SyncOutlined,
+  LoadingOutlined
+} from '@ant-design/icons';
 
 import Logo from '../components/Graphics/Logos/Logo';
 import SimpleList from '../components/DataDisplay/Lists/SimpleList';
