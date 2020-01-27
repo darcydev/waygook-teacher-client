@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
-import Cookies from 'js-cookie';
 import { Layout, Menu } from 'antd';
-import {
-  CalendarOutlined,
-  WalletOutlined,
-  UsergroupAddOutlined
-} from '@ant-design/icons';
+import { CalculatorFill, WalletFill } from '@ant-design/icons';
+import Cookies from 'js-cookie';
 
 import './CollapseSideBar.css';
 
-/* import { MessageModalForm } from '../components/DataEntry/Forms/Modals/Message';
+import { MessageModalForm } from '../components/DataEntry/Forms/Modals/Message';
 import { SettingsModalForm } from '../components/DataEntry/Forms/Modals/Settings';
- */
-
-import MessageModal from '../components/DataEntry/Modals/MessageModal';
-import SettingsModal from '../components/DataEntry/Modals/SettingsModal';
 
 const { Sider } = Layout;
 
@@ -48,7 +40,7 @@ export default class CollapseSideBar extends Component {
             })
           }
         >
-          <CalendarOutlined />
+          <CalculatorFill />
           <span>Calendar</span>
         </Menu.Item>
         <Menu.Item
@@ -59,7 +51,7 @@ export default class CollapseSideBar extends Component {
             })
           }
         >
-          <UsergroupAddOutlined />
+          <CalculatorFill />
           <span>Lessons</span>
         </Menu.Item>
         <Menu.Item
@@ -70,11 +62,11 @@ export default class CollapseSideBar extends Component {
             })
           }
         >
-          <WalletOutlined />
+          <WalletFill />
           <span>Wallet</span>
         </Menu.Item>
         <Menu.Item key="4">
-          <SettingsModal />
+          <SettingsModalForm />
         </Menu.Item>
       </Menu>
     );
@@ -82,7 +74,7 @@ export default class CollapseSideBar extends Component {
     const OTHER_PROFILE_MENU_MARKUP = (
       <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
         <Menu.Item key="1">
-          <MessageModal toUser={this.props.slug} />
+          <MessageModalForm toUser={this.props.slug} />
         </Menu.Item>
       </Menu>
     );
