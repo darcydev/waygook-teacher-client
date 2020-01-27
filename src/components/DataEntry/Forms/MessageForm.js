@@ -1,12 +1,13 @@
-/* ANTD V4 */
-
 import React from 'react';
 import { Form, Input } from 'antd';
 import axios from 'axios';
+import Cookies from 'js-cookie';
 
 const { TextArea } = Input;
 
 export default function MessageForm() {
+  const [form] = Form.useForm();
+
   const onFinish = values => {
     console.log('Received values of message form: ', values);
 
@@ -29,7 +30,7 @@ export default function MessageForm() {
   };
 
   return (
-    <Form layout="vertical" onFinish={onFinish}>
+    <Form form={form} layout="vertical" onFinish={onFinish}>
       <Form.Item name="message" rules={[{ required: true }]}>
         <TextArea rows={6} />
       </Form.Item>

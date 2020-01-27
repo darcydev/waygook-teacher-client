@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Form } from 'antd';
 
-import RegisterForm from '../components/DataEntry/Forms/Register';
+import RegisterForm from '../components/DataEntry/Forms/RegisterForm';
 import PageHeading from '../components/DataDisplay/Headings/PageHeading';
 
 export default function Register() {
