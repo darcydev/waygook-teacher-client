@@ -7,7 +7,7 @@ import { Layout, Table } from 'antd';
 
 import CollapseSideBar from '../sections/CollapseSideBar';
 // import { MessageModalForm } from '../components/DataEntry/Forms/Modals/Message';
-import MessageModal from '../components/DataEntry/Modals/MessageModal';
+/* import MessageModal from '../components/DataEntry/Modals/MessageModal'; */
 
 const { Content } = Layout;
 
@@ -76,7 +76,7 @@ export default class Inbox extends Component {
           name: otherUserData[OTHER_USER_ID].firstName,
           message: v.message_content,
           date: <TimeAgo date={v.date} />,
-          action: <MessageModal toUser={OTHER_USER_ID} />
+          action: {/* <MessageModal toUser={OTHER_USER_ID} /> */}
         };
       });
     }

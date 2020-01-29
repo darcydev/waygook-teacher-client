@@ -2,7 +2,7 @@ import React from 'react';
 import { Comment, List } from 'antd';
 import TimeAgo from 'react-timeago';
 
-export default function Conversation({ data, usersData }) {
+export default function Conversation({ data = undefined, usersData }) {
   // init the data
   const DATA = new Array(data.length);
   const LOADING_MARKUP = [];

@@ -14,6 +14,8 @@ export default class MessageModal extends Component {
     usersData: {}
   };
 
+  toggleModal = () => this.setState({ visible: !this.state.visible });
+
   componentDidMount() {
     this.fetchConversation();
   }
@@ -50,24 +52,24 @@ export default class MessageModal extends Component {
   }
 
   render() {
-    console.log('Message State', this.state);
-    const { conversationData, usersData, toUser } = this.props;
-    const { visible } = this.state;
+    // console.log('Message State', this.state);
+
+    const { toUser } = this.props;
+    const { visible, conversationData, usersData } = this.state;
 
     return (
       <>
-        <MessageFilled onClick={this.setState({ visible: true })} />
+        <MessageFilled onClick={this.toggleModal} />
 
         <Modal
           visible={visible}
           title="Conversation"
-          okText={<RocketFilled rotate={45} />}
-          onCancel={this.setState({ visible: false })}
-          // onOk={this.setState({ visible: false })}
-          toUser={toUser}
+          okText={<RocketFilled />}
+          onCancel={this.toggleModal}
+          onOk={this.toggleModal}
         >
           <Conversation data={conversationData} usersData={usersData} />
-          <MessageForm />
+          <MessageForm toUser={toUser} />
         </Modal>
       </>
     );

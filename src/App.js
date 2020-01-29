@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import styled from 'styled-components';
 import { Layout } from 'antd';
 
 import 'antd/dist/antd.css';
@@ -25,18 +26,23 @@ export default function App() {
         <Content style={{ minHeight: '90vh', background: 'var(--main)' }}>
           <Switch>
             <Route exact path="/" component={Home} />
-            {/*             <Route exact path="/login" component={Login} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/profile/:slug" component={Profile} />
-            <Route exact path="/inbox/:slug" component={Inbox} /> */}
+            <Route exact path="/inbox/:slug" component={Inbox} />
           </Switch>
         </Content>
-        <Footer style={{ padding: 0 }}>
+        <StyledFooter>
           <FooterSection />
-        </Footer>
+        </StyledFooter>
       </Layout>
     </div>
   );
 }
+
+// STYLES
+const StyledFooter = styled(Footer)`
+  padding: 0;
+`;

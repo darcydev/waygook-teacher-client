@@ -1,13 +1,22 @@
 import React from 'react';
+import styled from 'styled-components';
+import { Layout } from 'antd';
 
 import Logo from '../components/Graphics/Logos/Logo';
-/* import NavBar from '../components/Navigation/NavBar'; */
+import NavBar from '../components/Navigation/NavBar';
 
-export default function Header() {
+const { Header } = Layout;
+
+export default function HeaderSection() {
   return (
-    <Header style={{ display: 'flex' }}>
+    <Container>
       <Logo />
-      {/* <NavBar /> */}
-    </Header>
+      <NavBar />
+    </Container>
   );
 }
+
+// STYLES
+const Container = styled(Header)`
+  display: flex;
+`;
