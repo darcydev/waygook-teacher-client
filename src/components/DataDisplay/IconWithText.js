@@ -6,7 +6,7 @@ import { QuestionCircleFilled } from '@ant-design/icons';
 const { Text } = Typography;
 
 export default function IconWithText({
-  icon = <QuestionCircleFill />,
+  icon = <QuestionCircleFilled />,
   text = 'Default text'
 }) {
   return (

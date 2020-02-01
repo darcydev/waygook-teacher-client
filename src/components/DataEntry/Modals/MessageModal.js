@@ -1,15 +1,13 @@
-/* ANTD V4 */
-
 import React, { Component } from 'react';
-import { Modal } from 'antd';
-import { RocketFill } from '@ant-design/icons';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { Modal } from 'antd';
+import { MessageFilled, RocketFilled } from '@ant-design/icons';
 
 import MessageForm from '../Forms/MessageForm';
-import Conversation from '../../../DataDisplay/Comments/Conversation';
+import Conversation from '../../DataDisplay/Comments/Conversation';
 
-export class MessageModal extends Component() {
+export default class MessageModal extends Component {
   state = {
     visible: false,
     usersData: {}

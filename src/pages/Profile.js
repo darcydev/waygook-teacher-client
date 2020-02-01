@@ -15,9 +15,9 @@ import {
   Typography
 } from 'antd';
 import {
-  QuestionCircleFill,
-  DollarCircleFill,
-  HomeFill
+  QuestionCircleFilled,
+  DollarCircleFilled,
+  HomeFilled
 } from '@ant-design/icons';
 
 import CollapseSideBar from '../sections/CollapseSideBar';
@@ -75,13 +75,13 @@ export default class Profile extends Component {
         <Statistic
           title="Education Level"
           value={education_level}
-          prefix={<QuestionCircleFill />}
+          prefix={<QuestionCircleFilled />}
         />
-        <Statistic title="Rate" value={rate} prefix={<DollarCircleFill />} />
+        <Statistic title="Rate" value={rate} prefix={<DollarCircleFilled />} />
         <Statistic
           title="Lessons"
           value={lesson_hours}
-          prefix={<DollarCircleFill />}
+          prefix={<DollarCircleFilled />}
         />
         <Statistic title="Timezone" value={timezone} prefix={<HomeFilled />} />
         <Rate disabled allowHalf={true} defaultValue={ROUNDED_RATING} />

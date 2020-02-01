@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { Form, Input } from 'antd';
-import { AlertOutline, CheckCircle } from '@ant-design/icons';
+import { AlertOutlined, CheckCircleFilled } from '@ant-design/icons';
 import styled from 'styled-components';
 
-import FormButton from '../UI/FormButton';
+import FormButton from '../../UI/FormButton';
 
-import { checkUserLoggedIn } from '../../data/login';
+import { checkUserLoggedIn } from '../../../data/login';
 
 export default class LoginForm extends Component {
   state = {
@@ -46,10 +46,11 @@ export default class LoginForm extends Component {
   };
 
   render() {
+    const { loggedIn } = this.state;
     const { getFieldDecorator } = this.props.form;
 
     const FORM_BUTTON_TEXT = () => {
-      if (this.state.loggedIn) return <AlertOutline />;
+      if (loggedIn) return <AlertOutlined />;
       else return 'Login';
     };
 

@@ -2,9 +2,8 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Row, Col, Icon, Avatar, Layout, Table } from 'antd';
 import TimeAgo from 'react-timeago';
-import { Layout, Table, Skeleton } from 'antd';
+import { Row, Col, Icon, Avatar, Layout, Table, Skeleton } from 'antd';
 
 import CollapseSideBar from '../sections/CollapseSideBar';
 import MessageModal from '../components/DataEntry/Modals/MessageModal';
@@ -72,7 +71,7 @@ export default class Inbox extends Component {
           name: otherUserData[OTHER_USER_ID].firstName,
           message: v.message_content,
           date: <TimeAgo date={v.date} />,
-          action: <MessageModalForm toUser={OTHER_USER_ID} />
+          action: <MessageModal toUser={OTHER_USER_ID} />
         };
       });
     }

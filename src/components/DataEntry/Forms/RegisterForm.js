@@ -4,13 +4,13 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import styled from 'styled-components';
 import { Form, Input, Select } from 'antd';
-import { CheckCircleFill } from '@ant-design/icons';
+import { CheckCircleFilled } from '@ant-design/icons';
 
 import FormButton from '../../UI/FormButton';
 
 const { Option } = Select;
 
-export default class Register extends Component {
+export default class RegisterForm extends Component {
   state = {
     loading: false,
     success: false
@@ -46,9 +46,10 @@ export default class Register extends Component {
   }
 
   render() {
+    const { success, loading } = this.state;
     const { getFieldDecorator } = this.props.form;
 
-    const BUTTON_TEXT = this.state.success ? <CheckCircleFill /> : 'Register';
+    const BUTTON_TEXT = success ? <CheckCircleFilled /> : 'Register';
 
     return (
       <Form onSubmit={this.handleSubmit} className="register-form">
