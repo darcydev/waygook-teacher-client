@@ -3,11 +3,10 @@ import styled from 'styled-components';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import TimeAgo from 'react-timeago';
-import { Layout, Table } from 'antd';
+import { Layout, Table, Skeleton } from 'antd';
 
 import CollapseSideBar from '../sections/CollapseSideBar';
-// import { MessageModalForm } from '../components/DataEntry/Forms/Modals/Message';
-/* import MessageModal from '../components/DataEntry/Modals/MessageModal'; */
+import MessageModal from '../components/DataEntry/Modals/MessageModal';
 
 const { Content } = Layout;
 
@@ -54,13 +53,11 @@ export default class Inbox extends Component {
   };
 
   render() {
-    console.log('Inbox State', this.state);
+    // console.log('Inbox State', this.state);
 
     const { conversations, otherUserData } = this.state;
 
-    const LOADED_MARKUP = new Array(conversations.length);
-    // TODO: include loading skeleton markup
-    const LOADING_MARKUP = null;
+    const MARKUP = new Array(conversations.length);
 
     if (conversations.length) {
       conversations.map((v, i) => {
@@ -68,21 +65,16 @@ export default class Inbox extends Component {
         const OTHER_USER_ID =
           v.to_user_id == THIS_USER_ID ? v.from_user_id : v.to_user_id;
 
-        console.log(THIS_USER_ID, OTHER_USER_ID);
-
-        LOADED_MARKUP[i] = {
+        MARKUP[i] = {
           key: i,
           picture: otherUserData[OTHER_USER_ID].profilePic,
           name: otherUserData[OTHER_USER_ID].firstName,
           message: v.message_content,
           date: <TimeAgo date={v.date} />,
-          action: {/* <MessageModal toUser={OTHER_USER_ID} /> */}
+          action: <MessageModal toUser={OTHER_USER_ID} />
         };
       });
     }
-
-    const DATA_MARKUP =
-      conversations.length > 0 ? LOADED_MARKUP : LOADING_MARKUP;
 
     const COLUMNS = [
       {
@@ -118,7 +110,12 @@ export default class Inbox extends Component {
         <Layout>
           <CollapseSideBar slug={this.props.match.params.slug} />
           <Content className="content">
-            <Table columns={COLUMNS} dataSource={DATA_MARKUP} />
+            <Skeleton loading={!conversations.length} active>
+              <Table
+                columns={COLUMNS}
+                dataSource={conversations.length ? MARKUP : null}
+              />
+            </Skeleton>
           </Content>
         </Layout>
       </Container>
