@@ -15,6 +15,8 @@ export class MessageModal extends Component() {
     usersData: {}
   };
 
+  toggleModal = () => this.setState({ visible: !this.state.visible });
+
   componentDidMount() {
     this.fetchConversation();
   }
@@ -54,23 +56,24 @@ export class MessageModal extends Component() {
   }
 
   render() {
-    console.log('Message State', this.state);
-    const { conversationData, usersData } = this.props;
+    // console.log('Message State', this.state);
+
+    const { toUser } = this.props;
+    const { visible, conversationData, usersData } = this.state;
 
     return (
       <>
-        <Icon type="message" onClick={this.showModal} />
+        <MessageFilled onClick={this.toggleModal} />
 
         <Modal
           visible={visible}
           title="Conversation"
-          okText={<RocketFill rotate={45} />}
-          onCancel={onCancel}
-          onOk={onCreate}
-          toUser={toUser}
+          okText={<RocketFilled />}
+          onCancel={this.toggleModal}
+          onOk={this.toggleModal}
         >
           <Conversation data={conversationData} usersData={usersData} />
-          <MessageForm />
+          <MessageForm toUser={toUser} />
         </Modal>
       </>
     );

@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { QuestionCircleFill } from '@ant-design/icons';
+import { Typography } from 'antd';
+import { QuestionCircleFilled } from '@ant-design/icons';
+
+const { Text } = Typography;
 
 export default function IconWithText({
   icon = <QuestionCircleFill />,
@@ -8,17 +11,16 @@ export default function IconWithText({
 }) {
   return (
     <Container>
-      {icon}
-      {text}
+      <StyledIcon>{icon}</StyledIcon>
+      <Text>{text}</Text>
     </Container>
   );
 }
 
 const Container = styled.div`
   display: flex;
+`;
 
-  i {
-    align-self: center;
-    padding-right: 5px;
-  }
+const StyledIcon = styled.div`
+  align-self: center;
 `;

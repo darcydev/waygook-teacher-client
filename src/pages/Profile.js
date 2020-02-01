@@ -3,20 +3,29 @@ import styled from 'styled-components';
 import media from 'styled-media-query';
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Row, Col, Card, Avatar, Layout, Rate, Statistic } from 'antd';
+import {
+  Button,
+  Row,
+  Col,
+  Card,
+  Avatar,
+  Layout,
+  Rate,
+  Statistic,
+  Typography
+} from 'antd';
 import {
   QuestionCircleFill,
   DollarCircleFill,
   HomeFill
 } from '@ant-design/icons';
 
-import PageHeading from '../components/DataDisplay/Headings/PageHeading';
-import IconWithText from '../components/DataDisplay/IconWithText';
-
 import CollapseSideBar from '../sections/CollapseSideBar';
+import Banner from '../sections/Banner';
 
 const { Content } = Layout;
 const { Meta } = Card;
+const { Text, Title } = Typography;
 
 export default class Profile extends Component {
   state = {
@@ -74,8 +83,8 @@ export default class Profile extends Component {
           value={lesson_hours}
           prefix={<DollarCircleFill />}
         />
-        <Statistic title="Timezone" value={timezone} prefix={<HomeFill />} />
-        <Rate disabled allowHalf={true} defaultValue={4.5} />
+        <Statistic title="Timezone" value={timezone} prefix={<HomeFilled />} />
+        <Rate disabled allowHalf={true} defaultValue={ROUNDED_RATING} />
       </ul>
     );
 
@@ -83,13 +92,17 @@ export default class Profile extends Component {
       <Container className="page">
         <Layout>
           <CollapseSideBar slug={this.props.match.params.slug} />
-          <Content className="content">
-            <Row className="row-first">
-              <Col style={{ maxWidth: '100%' }}>
-                <Card
-                  className="img-md img-responsive"
-                  style={{ width: 300, marginBottom: '20px', maxWidth: '100%' }}
-                  cover={<img src={profile_pic} alt="profile" />}
+          <Content className="content" style={{ overflowX: 'visible' }}>
+            <Row display="flex">
+              <Col md={12} sm={24}>
+                <StyledCard
+                  cover={
+                    <img
+                      src={profile_pic}
+                      className="img-md img-responsive"
+                      alt="profile"
+                    />
+                  }
                 >
                   <Meta
                     avatar={
@@ -98,11 +111,17 @@ export default class Profile extends Component {
                     title={`${first_name} ${last_name}`}
                     description={CARD_DESCRIPTION_MARKUP}
                   />
-                </Card>
+                </StyledCard>
               </Col>
-              <Col style={{ maxWidth: '100%' }}>{description}</Col>
+              <Col md={12} sm={24}>
+                <Title level={3}>Description</Title>
+                <Text>{description ? description : 'Default text here'}</Text>
+              </Col>
             </Row>
-            <Row></Row>
+            <Row>
+              <Banner />
+              <Title level={3}>Reviews</Title>
+            </Row>
           </Content>
         </Layout>
       </Container>
@@ -110,20 +129,10 @@ export default class Profile extends Component {
   }
 }
 
-const Container = styled.div`
-  .row-first {
-    display: flex;
+const Container = styled.div``;
 
-    ${media.lessThan('small')`
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-    `}
-
-    img {
-      border-radius: 10px;
-    }
-  }
+const StyledCard = styled(Card)`
+  width: 300px;
+  margin-bottom: 20px;
+  max-width: 100%;
 `;
-
-const DescriptionContainer = styled.div``;

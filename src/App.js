@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import styled from 'styled-components';
 import { Layout } from 'antd';
 import Cookies from 'js-cookie';
 
@@ -36,10 +37,15 @@ export default function App() {
             <Route exact path="/inbox/:slug" component={Inbox} />
           </Switch>
         </Content>
-        <Footer style={{ padding: 0 }}>
+        <StyledFooter>
           <FooterSection />
-        </Footer>
+        </StyledFooter>
       </Layout>
     </div>
   );
 }
+
+// STYLES
+const StyledFooter = styled(Footer)`
+  padding: 0;
+`;

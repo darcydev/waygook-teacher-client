@@ -1,13 +1,15 @@
-/* UPGRADE TO V4 */
-
 import React, { useState } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+/*
+-- removed because package too big
+import cityTimezones from 'city-timezones'; */
 import { Form, Input, AutoComplete, Button } from 'antd';
-import cityTimezones from 'city-timezones';
 
 const AutoCompleteOption = AutoComplete.Option;
 
 export default function SettingsForm() {
-  const [timezones, setTimezone] = useState([]);
+  /*   const [timezones, setTimezone] = useState([]);
   const [tzInvalid, setTzInvalid] = useState(true);
 
   const onFinish = values => {
@@ -33,12 +35,16 @@ export default function SettingsForm() {
   };
 
   const tzOptions = () =>
-    timezones.map(tz => <AutoCompleteOption key={tz}>{tz}</AutoCompleteOption>);
+    timezones.map(tz => <AutoCompleteOption key={tz}>{tz}</AutoCompleteOption>); */
 
-  return (
-    <div>
-      Settings
-      <Form onFinish={onFinish}>
+  return <Container>TODO!</Container>;
+}
+
+// STYLES
+const Container = styled(Form)``;
+
+{
+  /* <Form onFinish={onFinish}>
         <Form.Item
           name="timezone"
           rules={[
@@ -46,7 +52,7 @@ export default function SettingsForm() {
           ]}
         >
           <AutoComplete
-            dataSource={tzOptions}
+            options={tzOptions()}
             onChange={onCityChange}
             placeholder="What's your city?"
           >
@@ -58,7 +64,5 @@ export default function SettingsForm() {
             Submit
           </Button>
         </Form.Item>
-      </Form>
-    </div>
-  );
+      </Form> */
 }

@@ -7,9 +7,12 @@
   /* UI */
   --primary: blue;
   --danger: red;
+  --ui-green: #52c41a;
 
   /* TEXT */
   --heading: black;
+  --txt-head-dark: black;
+  --txt-head-light: white;
   --textMain: white;
   --textGrey: grey;
 }
@@ -30,6 +33,7 @@ code {
 
 /* PAGES */
 .page {
+  min-height: 90vh !important;
   padding: 70px 30px;
 }
 
@@ -40,6 +44,7 @@ code {
 }
 
 section {
+  min-height: 100%;
   padding: 40px 0;
 }
 
@@ -59,7 +64,7 @@ h1 {
 .content {
   padding: 30px;
   max-width: 760px;
-  margin: auto;
+  /* margin: auto; */
 }
 
 /* IMAGES */

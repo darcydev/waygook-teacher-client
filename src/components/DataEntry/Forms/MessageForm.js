@@ -1,12 +1,15 @@
 /* ANTD V4 */
 
 import React from 'react';
-import { Form, Input } from 'antd';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+import { Button, Form, Input } from 'antd';
 
 const { TextArea } = Input;
 
-export default function MessageForm() {
+export default function MessageForm({ toUser }) {
+  const [form] = Form.useForm();
+
   const onFinish = values => {
     console.log('Received values of message form: ', values);
 
@@ -17,12 +20,13 @@ export default function MessageForm() {
       )}/controllers/sendMessage.php`,
       data: {
         message: values.message,
-        fromUser: Cookies.get('email'),
-        toUser: this.props.toUser
+        fromUser: Cookies.get('userID'),
+        toUser: toUser
       }
     })
-      .then(response => {
+      .then(resp => {
         // TODO: show success/fail message - currently it's silent!
+        console.log(resp);
       })
       .then(() => form.resetFields())
       .catch(e => console.error(e));
@@ -32,6 +36,11 @@ export default function MessageForm() {
     <Form layout="vertical" onFinish={onFinish}>
       <Form.Item name="message" rules={[{ required: true }]}>
         <TextArea rows={6} />
+      </Form.Item>
+      <Form.Item>
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
       </Form.Item>
     </Form>
   );
