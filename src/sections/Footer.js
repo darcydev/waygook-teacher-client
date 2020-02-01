@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import media from 'styled-media-query';
-import { Row, Col, Avatar } from 'antd';
+import { Row, Col, Avatar, Typography } from 'antd';
 
 import Logo from '../components/Graphics/Logos/Logo';
 import SimpleList from '../components/DataDisplay/Lists/SimpleList';
 import SimpleButton from '../components/UI/SimpleButton';
+
+const { Title, Text } = Typography;
 
 export default function Footer({
   id = undefined,
@@ -33,8 +35,9 @@ export default function Footer({
     <Container id={id} className={classes}>
       <Row gutter={[0, 24]}>
         <Col md={10} sm={24}>
-          <ColHeading>{companyName}</ColHeading>
-          <h6>© {companyYear}</h6>
+          <Title level={4}>
+            {companyName} © {companyYear}
+          </Title>
           <ListContainer>{REGISTRATION_MARKUP}</ListContainer>
           <LogoContainer>
             <Logo />
@@ -44,7 +47,7 @@ export default function Footer({
           <SimpleList light={true} data={contactDetails} />
         </Col>
         <Col md={8} sm={24}>
-          <ColHeading>About the company</ColHeading>
+          <Title level={3}>About the company</Title>
           <Text>{aboutCompanyText}</Text>
         </Col>
       </Row>
@@ -62,8 +65,13 @@ const Container = styled.div`
   background-color: #001529;
   padding-top: 30px;
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
   h6 {
-    color: white;
+    color: var(--txt-head-light);
   }
 
   .ant-list-item-meta-description {
@@ -93,8 +101,6 @@ const ListContainer = styled.div`
 const ColHeading = styled.h5`
   color: white;
 `;
-
-const Text = styled.p``;
 
 // DEFAULT DATA
 const defaultNavLinks = [
