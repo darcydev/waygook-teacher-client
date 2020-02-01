@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import cityTimezones from 'city-timezones';
+/*
+-- removed because package too big
+import cityTimezones from 'city-timezones'; */
 import { Form, Input, AutoComplete, Button } from 'antd';
 
 const AutoCompleteOption = AutoComplete.Option;
 
 export default function SettingsForm() {
-  const [timezones, setTimezone] = useState([]);
+  /*   const [timezones, setTimezone] = useState([]);
   const [tzInvalid, setTzInvalid] = useState(true);
 
   const onFinish = values => {
@@ -33,7 +35,7 @@ export default function SettingsForm() {
   };
 
   const tzOptions = () =>
-    timezones.map(tz => <AutoCompleteOption key={tz}>{tz}</AutoCompleteOption>);
+    timezones.map(tz => <AutoCompleteOption key={tz}>{tz}</AutoCompleteOption>); */
 
   return <Container>TODO!</Container>;
 }

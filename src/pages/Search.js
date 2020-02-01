@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Card, Icon, Avatar, Select, Slider } from 'antd';
 import { Link, Redirect } from 'react-router-dom';
+import { Row, Col, Card, Icon, Avatar, Select, Slider, Skeleton } from 'antd';
+import { DollarTwoTone } from '@ant-design/icons';
 
 import axios from 'axios';
 
@@ -10,32 +11,6 @@ import IconWithText from '../components/DataDisplay/IconWithText';
 
 const { Option } = Select;
 const { Meta } = Card;
-
-const dummyData = [
-  {
-    userID: -1,
-    profile_pic:
-      'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-    flagSrc:
-      'https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png',
-    first_name: 'Michael Douglas'
-  },
-  {
-    userID: -2,
-    profile_pic:
-      'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-    flagSrc:
-      'https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/100px-Flag_of_the_United_States.svg.png',
-    first_name: 'Michael Douglas'
-  },
-  {
-    userID: -3,
-    profile_pic:
-      'https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png',
-    flagSrc: 'images/flags/american-flag.png',
-    first_name: 'Michael Douglas'
-  }
-];
 
 export default class Search extends Component {
   state = {
@@ -79,12 +54,11 @@ export default class Search extends Component {
     this.setState({ minRate: value[0], maxRate: value[1] });
 
   render() {
-    const data =
-      this.state.teachers.length === 0 ? dummyData : this.state.teachers;
+    const { teachers, nation, minAge, minRate, maxAge, maxRate } = this.state;
 
     // calculate the min/max values for the slider bars
     let YOUNG, OLD, CHEAP, EXXY;
-    Object.values(this.state.teachers).forEach(v => {
+    Object.values(teachers).forEach(v => {
       const AGE = this.calculateAge(v.DOB);
 
       if (!CHEAP || v.rate < CHEAP) CHEAP = Number(v.rate);
@@ -107,38 +81,44 @@ export default class Search extends Component {
     ));
 
     // FILTER CHECKS
-    const CARD_MARKUP = data.map((v, i) => {
+    const CARD_MARKUP = teachers.map((v, i) => {
       // nationality
-      if (
-        this.state.nation.length !== 0 &&
-        !this.state.nation.includes(v.nationality)
-      )
+      if (nation.length !== 0 && !nation.includes(v.nationality))
         return undefined;
       //age
       const USER_AGE = this.calculateAge(v.DOB);
-      if (this.state.minAge > USER_AGE || USER_AGE > this.state.maxAge)
-        return undefined;
+      if (minAge > USER_AGE || USER_AGE > maxAge) return undefined;
       // rate
-      if (this.state.minRate > v.rate || v.rate > this.state.maxRate)
-        return undefined;
+      if (minRate > v.rate || v.rate > maxRate) return undefined;
       else
         return (
-          <Link to={`profile/${v.userID}`}>
-            <Card
-              className="img-md img-responsive"
-              key={v.userID === undefined ? `${i}: ${v}` : v.userID}
-              style={{ width: 300, marginBottom: '20px' }}
-              cover={<img alt="profile" src={v.profile_pic} />}
-            >
-              <Meta
-                avatar={
-                  <Avatar src={`images/flags/${v.nationality}-flag.png`} />
+          <Skeleton loading={teachers.length === 0} active>
+            <Link to={`profile/${v.userID}`}>
+              <StyledCard
+                key={v.userID || `${i}: ${v}`}
+                cover={
+                  <img
+                    src={v.profile_pic}
+                    className="img-md img-responsive"
+                    alt="profile"
+                  />
                 }
-                title={v.first_name}
-                description={<IconWithText text={v.rate} />}
-              />
-            </Card>
-          </Link>
+              >
+                <Meta
+                  avatar={
+                    <Avatar src={`images/flags/${v.nationality}-flag.png`} />
+                  }
+                  title={v.first_name}
+                  description={
+                    <IconWithText
+                      icon={<DollarTwoTone twoToneColor="#52c41a" />}
+                      text={v.rate}
+                    />
+                  }
+                />
+              </StyledCard>
+            </Link>
+          </Skeleton>
         );
     });
 
@@ -181,6 +161,7 @@ export default class Search extends Component {
   }
 }
 
+// STYLES
 const FilterContainer = styled.div`
   padding: 10px;
   display: flex;
@@ -197,4 +178,9 @@ const FlexWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+`;
+
+const StyledCard = styled(Card)`
+  width: 300;
+  margin-bottom: 20px;
 `;
