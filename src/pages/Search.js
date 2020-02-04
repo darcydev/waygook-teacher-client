@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-import { Link, Redirect } from 'react-router-dom';
-import { Row, Col, Card, Icon, Avatar, Select, Slider, Skeleton } from 'antd';
-import { DollarTwoTone } from '@ant-design/icons';
+import React, { Component } from "react";
+import styled from "styled-components";
+import { Link, Redirect } from "react-router-dom";
+import { Row, Col, Card, Icon, Avatar, Select, Slider, Skeleton } from "antd";
+import { DollarTwoTone } from "@ant-design/icons";
 
-import axios from 'axios';
+import axios from "axios";
 
-import PageHeading from '../components/DataDisplay/Headings/PageHeading';
-import IconWithText from '../components/DataDisplay/IconWithText';
+import PageHeading from "../components/DataDisplay/Headings/PageHeading";
+import IconWithText from "../components/DataDisplay/IconWithText";
 
 const { Option } = Select;
 const { Meta } = Card;
@@ -29,14 +29,14 @@ export default class Search extends Component {
 
   fetchTeachers = () => {
     axios({
-      method: 'GET',
-      url: `${localStorage.getItem('API_BASE_URL')}/controllers/teachers.php`
-    }).then(response => {
+      method: "GET",
+      url: `${localStorage.getItem("API_BASE_URL")}/controllers/teachers.php`
+    }).then((response) => {
       this.setState({ teachers: response.data });
     });
   };
 
-  calculateAge = DOB => {
+  calculateAge = (DOB) => {
     const today = new Date();
     const birthDate = new Date(DOB);
 
@@ -48,9 +48,10 @@ export default class Search extends Component {
     return age;
   };
 
-  onNationFilter = value => this.setState({ nation: value });
-  onAgeFilter = value => this.setState({ minAge: value[0], maxAge: value[1] });
-  onRateFilter = value =>
+  onNationFilter = (value) => this.setState({ nation: value });
+  onAgeFilter = (value) =>
+    this.setState({ minAge: value[0], maxAge: value[1] });
+  onRateFilter = (value) =>
     this.setState({ minRate: value[0], maxRate: value[1] });
 
   render() {
@@ -58,7 +59,7 @@ export default class Search extends Component {
 
     // calculate the min/max values for the slider bars
     let YOUNG, OLD, CHEAP, EXXY;
-    Object.values(teachers).forEach(v => {
+    Object.values(teachers).forEach((v) => {
       const AGE = this.calculateAge(v.DOB);
 
       if (!CHEAP || v.rate < CHEAP) CHEAP = Number(v.rate);
@@ -69,14 +70,14 @@ export default class Search extends Component {
 
     // FILTER MARKUPS
     const NATIONALITIES = [
-      'American',
-      'Australian',
-      'British',
-      'Korean',
-      'South_African',
-      'Canadian'
+      "American",
+      "Australian",
+      "British",
+      "Korean",
+      "South_African",
+      "Canadian"
     ];
-    const NATION_FILTER_MARKUP = NATIONALITIES.map(v => (
+    const NATION_FILTER_MARKUP = NATIONALITIES.map((v) => (
       <Option key={v.toLowerCase()}>{v}</Option>
     ));
 
@@ -128,7 +129,7 @@ export default class Search extends Component {
         <FilterContainer>
           <Select
             mode="multiple"
-            style={{ width: '25%' }}
+            style={{ width: "25%" }}
             placeholder="Filter by nationality"
             onChange={this.onNationFilter}
           >

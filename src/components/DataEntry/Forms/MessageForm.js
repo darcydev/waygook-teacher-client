@@ -1,35 +1,34 @@
-/* ANTD V4 */
-
-import React from 'react';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { Button, Form, Input } from 'antd';
+import React, { useState } from "react";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { Button, Form, Input } from "antd";
 
 const { TextArea } = Input;
 
 export default function MessageForm({ toUser }) {
+  const [success, setSuccess] = useState(false);
   const [form] = Form.useForm();
 
-  const onFinish = values => {
-    console.log('Received values of message form: ', values);
+  const onFinish = (values) => {
+    console.log("Received values of message form: ", values);
 
     axios({
-      method: 'POST',
+      method: "POST",
       url: `${localStorage.getItem(
-        'API_BASE_URL'
+        "API_BASE_URL"
       )}/controllers/sendMessage.php`,
       data: {
         message: values.message,
-        fromUser: Cookies.get('userID'),
+        fromUser: Cookies.get("userID"),
         toUser: toUser
       }
     })
-      .then(resp => {
+      .then((resp) => {
         // TODO: show success/fail message - currently it's silent!
         console.log(resp);
       })
       .then(() => form.resetFields())
-      .catch(e => console.error(e));
+      .catch((e) => console.error(e));
   };
 
   return (

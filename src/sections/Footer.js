@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
-import media from 'styled-media-query';
-import { Row, Col, Avatar, Typography } from 'antd';
+import React from "react";
+import styled from "styled-components";
+import media from "styled-media-query";
+import { Row, Col, Avatar, Typography } from "antd";
 
-import Logo from '../components/Graphics/Logos/Logo';
-import SimpleList from '../components/DataDisplay/Lists/SimpleList';
-import SimpleButton from '../components/UI/SimpleButton';
+import Logo from "../components/Graphics/Logos/Logo";
+import SimpleList from "../components/DataDisplay/Lists/SimpleList";
+import SimpleButton from "../components/UI/SimpleButton";
 
 const { Title, Text } = Typography;
 
@@ -13,21 +13,21 @@ export default function Footer({
   id = undefined,
   classes = undefined,
   logo = <Logo />,
-  companyName = 'Fake Company Name',
-  companyYear = '2019',
-  aboutCompanyText = 'Cillum qui non laborum laboris',
+  companyName = "Fake Company Name",
+  companyYear = "2019",
+  aboutCompanyText = "Cillum qui non laborum laboris",
   navLinks = defaultNavLinks,
   registration = defaultRegistration,
   contactDetails = defaultContactDetails
 }) {
-  const NAV_LINKS_MARKUP = navLinks.map(v => (
+  const NAV_LINKS_MARKUP = navLinks.map((v) => (
     <SimpleButton type="link" text={v.title} href={v.link} />
   ));
 
   const REGISTRATION_MARKUP = registration.map((v, i) => (
     <li
       key={`${i}: ${v.number}`}
-      style={{ padding: '2px 0' }}
+      style={{ padding: "2px 0" }}
     >{`${v.name} (${v.location}) #${v.number}`}</li>
   ));
 
@@ -78,7 +78,7 @@ const Container = styled.div`
     font-size: 14px;
   }
 
-  ${media.lessThan('medium')`
+  ${media.lessThan("medium")`
     .ant-row {
       display: flex;
       flex-direction: column;
@@ -98,48 +98,44 @@ const ListContainer = styled.div`
   padding: 10px 0;
 `;
 
-const ColHeading = styled.h5`
-  color: white;
-`;
-
 // DEFAULT DATA
 const defaultNavLinks = [
   {
-    title: 'About Us',
-    link: 'https://google.com'
+    title: "About Us",
+    link: "https://google.com"
   },
-  { title: 'More About Us', link: 'https://google.com' }
+  { title: "More About Us", link: "https://google.com" }
 ];
 
 const defaultRegistration = [
   {
-    name: 'Company Name Ltd',
-    location: 'Seychelles',
-    number: '202804'
+    name: "Company Name Ltd",
+    location: "Seychelles",
+    number: "202804"
   }
 ];
 
 const defaultContactDetails = [
   {
     icon: (
-      <Avatar style={{ backgroundColor: 'orange' }} size="small" icon="phone" />
+      <Avatar style={{ backgroundColor: "orange" }} size="small" icon="phone" />
     ),
-    content: '+123 456 789'
+    content: "+123 456 789"
   },
   {
     icon: (
-      <Avatar style={{ backgroundColor: 'orange' }} size="small" icon="mail" />
+      <Avatar style={{ backgroundColor: "orange" }} size="small" icon="mail" />
     ),
-    content: 'fake@gmail.com'
+    content: "fake@gmail.com"
   },
   {
     icon: (
       <Avatar
-        style={{ backgroundColor: 'orange' }}
+        style={{ backgroundColor: "orange" }}
         size="small"
         icon="compass"
       />
     ),
-    content: '123 Fake Street, Fakeville Fakecountry'
+    content: "123 Fake Street, Fakeville Fakecountry"
   }
 ];

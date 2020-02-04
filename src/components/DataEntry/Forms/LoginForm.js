@@ -1,90 +1,56 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import Cookies from 'js-cookie';
-import { Form, Input } from 'antd';
-import { AlertOutlined, CheckCircleFilled } from '@ant-design/icons';
-import styled from 'styled-components';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { Form, Input } from "antd";
+import { CheckCircleFilled } from "@ant-design/icons";
 
-import FormButton from '../../UI/FormButton';
+import FormButton from "../../UI/FormButton";
 
-import { checkUserLoggedIn } from '../../../data/login';
+export default function LoginForm() {
+  // if already logged in, direct them to homepage
+  if (Cookies.get("userID")) window.location.href = "/";
 
-export default class LoginForm extends Component {
-  state = {
-    loading: false,
-    success: false,
-    loggedIn: checkUserLoggedIn()
+  const [success, setSuccess] = useState(false);
+  const [form] = Form.useForm();
+
+  const handleSubmit = (values) => {
+    console.log("login form values:", values);
+
+    form
+      .validateFields()
+      .then((values) => login(values))
+      .catch((e) => console.error(e));
   };
 
-  login(values) {
+  const login = (values) => {
     axios({
-      method: 'POST',
-      url: `${localStorage.getItem('API_BASE_URL')}/controllers/login.php`,
+      method: "POST",
+      url: `${localStorage.getItem("API_BASE_URL")}/controllers/login.php`,
       data: values
-    }).then(response => {
-      if (!response.data.success)
-        this.setState({ success: false, loggedIn: false });
-      else if (response.data.success) {
-        Cookies.set('email', values.email);
-        Cookies.set('userID', response.data.userID.userID);
-        this.setState({ success: true, loggedIn: true });
+    }).then((response) => {
+      console.log("login form response", response);
 
-        window.location.href = '/';
+      if (response.data.success) {
+        Cookies.set("email", values.email);
+        Cookies.set("userID", response.data.userID.userID);
+        setSuccess(true);
       }
     });
-  }
-
-  handleSubmit = e => {
-    e.preventDefault();
-
-    this.setState({ loading: true });
-
-    this.props.form.validateFields((err, values) => {
-      if (!err) this.login(values);
-    });
   };
 
-  render() {
-    const { loggedIn } = this.state;
-    const { getFieldDecorator } = this.props.form;
-
-    const FORM_BUTTON_TEXT = () => {
-      if (loggedIn) return <AlertOutlined />;
-      else return 'Login';
-    };
-
-    return (
-      <Container>
-        <Form onSubmit={this.handleSubmit} className="login-form">
-          <Form.Item>
-            {getFieldDecorator('email', {
-              rules: [
-                {
-                  type: 'email'
-                },
-                {
-                  required: true
-                }
-              ]
-            })(<Input placeholder="Email" />)}
-          </Form.Item>
-          <Form.Item>
-            {getFieldDecorator('password', {
-              rules: [{ required: true }]
-            })(<Input type="password" placeholder="Password" />)}
-          </Form.Item>
-          <Form.Item>
-            <FormButton
-              text={FORM_BUTTON_TEXT()}
-              styles={{ minWidth: '30px' }}
-            />
-            Not a member? <Link to="/register">Register</Link>
-          </Form.Item>
-        </Form>
-      </Container>
-    );
-  }
+  return (
+    <Form form={form} onFinish={handleSubmit}>
+      <Form.Item name="email" rules={[{ required: true }]}>
+        <Input placeholder="Email" />
+      </Form.Item>
+      <Form.Item name="password" rules={[{ required: true }]}>
+        <Input type="password" placeholder="Password" />
+      </Form.Item>
+      <Form.Item>
+        <FormButton text={success ? <CheckCircleFilled /> : "Register"} />
+        Not a member? <Link to="/register">Register</Link>
+      </Form.Item>
+    </Form>
+  );
 }
-
-const Container = styled.div``;
