@@ -1,47 +1,64 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import styled from 'styled-components';
-/*
--- removed because package too big
-import cityTimezones from 'city-timezones'; */
-import { Form, Input, AutoComplete, Button } from 'antd';
+import React, { useState } from "react";
+import axios from "axios";
+import styled from "styled-components";
+import { Form, Input, AutoComplete, Button, Upload } from "antd";
+import { CheckCircleFilled, UploadOutlined } from "@ant-design/icons";
+
+import FormButton from "../../UI/FormButton";
 
 const AutoCompleteOption = AutoComplete.Option;
 
 export default function SettingsForm() {
-  /*   const [timezones, setTimezone] = useState([]);
-  const [tzInvalid, setTzInvalid] = useState(true);
+  const [success, setSuccess] = useState(false);
+  const [form] = Form.useForm();
 
-  const onFinish = values => {
-    console.log('Received values of form: ', values);
+  const handleSubmit = (values) => {
+    console.log("settings form values:", values);
 
-    if (tzInvalid) {
-      console.log('invalid tz entered', timezones);
-    } else {
-      console.log(timezones);
-      // send to db
-    }
+    form
+      .validateFields()
+      .then((values) => updateSettings(values))
+      .catch((e) => console.error(e));
   };
 
-  const onCityChange = value => {
-    const cityLookup = cityTimezones.lookupViaCity(value);
+  const normFile = (e) => {
+    console.log("Upload event:", e);
 
-    if (cityLookup.length === 0) {
-      setTzInvalid(true);
-    } else {
-      setTimezone([cityLookup[0].timezone]);
-      setTzInvalid(false);
-    }
+    return Array.isArray(e) ? e : e && e.fileList;
   };
 
-  const tzOptions = () =>
-    timezones.map(tz => <AutoCompleteOption key={tz}>{tz}</AutoCompleteOption>); */
+  const updateSettings = (values) => {
+    console.log(values);
 
-  return <Container>TODO!</Container>;
+    // TODO update settings in db
+  };
+
+  return (
+    <Form form={form} onFinish={handleSubmit}>
+      <Form.Item
+        name="profile"
+        label="Profile Picture"
+        valuePropName="fileList"
+        getValueFromEvent={normFile}
+      >
+        <Upload
+          name="profile"
+          action={`${localStorage.getItem(
+            "API_BASE_URL"
+          )}/controllers/uploadImage.php`}
+          listType="picture"
+        >
+          <Button>
+            <UploadOutlined /> Click to upload
+          </Button>
+        </Upload>
+      </Form.Item>
+      <Form.Item>
+        <FormButton text={success ? <CheckCircleFilled /> : "Update"} />
+      </Form.Item>
+    </Form>
+  );
 }
-
-// STYLES
-const Container = styled(Form)``;
 
 {
   /* <Form onFinish={onFinish}>

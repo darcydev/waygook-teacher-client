@@ -1,11 +1,18 @@
-import React from 'react';
+import React from "react";
+import styled from "styled-components";
 
 export default function Logo() {
   return (
-    <img
+    <Container
       src="https://avatarfiles.alphacoders.com/162/162739.jpg"
       alt="logo"
-      style={{ maxWidth: '50px', maxHeight: '50px', alignSelf: 'center' }}
     />
   );
 }
+
+const Container = styled.img`
+  margin: auto;
+  max-width: 50px;
+  max-height: 50px;
+  align-self: center;
+`;

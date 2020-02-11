@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { Modal } from 'antd';
-import { RocketFilled, SettingFilled } from '@ant-design/icons';
+import React, { Component } from "react";
+import { Modal } from "antd";
+import { RocketFilled, SettingFilled } from "@ant-design/icons";
 
-import SettingsForm from '../Forms/SettingsForm';
+import SettingsForm from "../Forms/SettingsForm";
 
 export default class SettingsModal extends Component {
   state = {
@@ -12,15 +12,20 @@ export default class SettingsModal extends Component {
   toggleModal = () => this.setState({ visible: !this.state.visible });
 
   render() {
-    const { visible } = this.state;
+    // console.log("Settings Modal State: ", this.state);
 
-    console.log(this.state);
+    const { visible } = this.state;
 
     return (
       <>
         <SettingFilled onClick={this.toggleModal} />
 
-        <Modal visible={visible} title="Settings" onCancel={this.toggleModal}>
+        <Modal
+          visible={visible}
+          title="Settings"
+          onCancel={this.toggleModal}
+          onOk={this.toggleModal}
+        >
           <SettingsForm />
         </Modal>
       </>

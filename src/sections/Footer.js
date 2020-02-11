@@ -2,57 +2,47 @@ import React from "react";
 import styled from "styled-components";
 import media from "styled-media-query";
 import { Row, Col, Avatar, Typography } from "antd";
+import {
+  PhoneOutlined,
+  MailOutlined,
+  CompassOutlined
+} from "@ant-design/icons";
 
 import Logo from "../components/Graphics/Logos/Logo";
 import SimpleList from "../components/DataDisplay/Lists/SimpleList";
 import SimpleButton from "../components/UI/SimpleButton";
+import NavBar from "../components/Navigation/NavBar";
 
 const { Title, Text } = Typography;
 
 export default function Footer({
   id = undefined,
   classes = undefined,
-  logo = <Logo />,
-  companyName = "Fake Company Name",
-  companyYear = "2019",
-  aboutCompanyText = "Cillum qui non laborum laboris",
-  navLinks = defaultNavLinks,
-  registration = defaultRegistration,
   contactDetails = defaultContactDetails
 }) {
-  const NAV_LINKS_MARKUP = navLinks.map((v) => (
-    <SimpleButton type="link" text={v.title} href={v.link} />
-  ));
-
-  const REGISTRATION_MARKUP = registration.map((v, i) => (
-    <li
-      key={`${i}: ${v.number}`}
-      style={{ padding: "2px 0" }}
-    >{`${v.name} (${v.location}) #${v.number}`}</li>
-  ));
-
   return (
     <Container id={id} className={classes}>
       <Row gutter={[0, 24]}>
         <Col md={10} sm={24}>
-          <Title level={4}>
-            {companyName} © {companyYear}
-          </Title>
-          <ListContainer>{REGISTRATION_MARKUP}</ListContainer>
-          <LogoContainer>
-            <Logo />
-          </LogoContainer>
+          <Title level={4}>WaygookTeacher © 2019</Title>
+          <Logo />
         </Col>
         <Col md={6} sm={12}>
           <SimpleList light={true} data={contactDetails} />
         </Col>
         <Col md={8} sm={24}>
           <Title level={3}>About the company</Title>
-          <Text>{aboutCompanyText}</Text>
+          <Text>
+            WaygookTeacher brings together expert native English teachers with
+            Korean language-learners. The platform creates the most successful
+            approach to high-quality learning.
+          </Text>
         </Col>
       </Row>
       <Row>
-        <Col span={24}>{NAV_LINKS_MARKUP}</Col>
+        <Col span={24}>
+          <NavBar />
+        </Col>
       </Row>
     </Container>
   );
@@ -70,7 +60,8 @@ const Container = styled.div`
   h3,
   h4,
   h5,
-  h6 {
+  h6,
+  span {
     color: var(--txt-head-light);
   }
 
@@ -91,49 +82,30 @@ const Container = styled.div`
   `}
 `;
 
-const LogoContainer = styled.div``;
-const ListContainer = styled.div`
-  color: #697a95;
-  list-style: none;
-  padding: 10px 0;
-`;
-
-// DEFAULT DATA
-const defaultNavLinks = [
-  {
-    title: "About Us",
-    link: "https://google.com"
-  },
-  { title: "More About Us", link: "https://google.com" }
-];
-
-const defaultRegistration = [
-  {
-    name: "Company Name Ltd",
-    location: "Seychelles",
-    number: "202804"
-  }
-];
-
+// DEFAULT CONTENT
 const defaultContactDetails = [
   {
     icon: (
-      <Avatar style={{ backgroundColor: "orange" }} size="small" icon="phone" />
+      <Avatar
+        style={{ color: "black", backgroundColor: "white" }}
+        size="small"
+        icon={<PhoneOutlined />}
+      />
     ),
     content: "+123 456 789"
   },
   {
     icon: (
-      <Avatar style={{ backgroundColor: "orange" }} size="small" icon="mail" />
+      <Avatar style={{ color: "black" }} size="small" icon={<MailOutlined />} />
     ),
     content: "fake@gmail.com"
   },
   {
     icon: (
       <Avatar
-        style={{ backgroundColor: "orange" }}
+        style={{ color: "black", backgroundColor: "white" }}
         size="small"
-        icon="compass"
+        icon={<CompassOutlined />}
       />
     ),
     content: "123 Fake Street, Fakeville Fakecountry"

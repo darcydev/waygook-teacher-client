@@ -1,22 +1,22 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Layout } from 'antd';
+import React from "react";
+import styled from "styled-components";
+import { Layout } from "antd";
 
-import Logo from '../components/Graphics/Logos/Logo';
-import NavBar from '../components/Navigation/NavBar';
+import Logo from "../components/Graphics/Logos/Logo";
+import NavBar from "../components/Navigation/NavBar";
 
 const { Header } = Layout;
 
 export default function HeaderSection() {
   return (
-    <Container>
+    <StyledHeader>
       <Logo />
-      <NavBar />
-    </Container>
+      <NavBar styles={{ textAlign: "right" }} />
+    </StyledHeader>
   );
 }
 
 // STYLES
-const Container = styled(Header)`
+const StyledHeader = styled(Header)`
   display: flex;
 `;

@@ -1,14 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Menu } from "antd";
 import Cookies from "js-cookie";
+import styled from "styled-components";
+import { Menu } from "antd";
 
 import { NAV_LINKS } from "../../data/navLinks";
 
-export default function NavBar() {
+export default function NavBar({ styles = undefined }) {
   const USER_LOGGED_IN = Cookies.get("userID") > 0;
-
-  // console.log('All Cookies set:', Cookies.get());
 
   const MENU_ITEMS_MARKUP = NAV_LINKS.map((v) =>
     v.loggedIn === USER_LOGGED_IN ? (
@@ -21,13 +20,19 @@ export default function NavBar() {
   );
 
   return (
-    <Menu
+    <StyledMenu
       theme="dark"
       mode="horizontal"
       defaultSelectedKeys={["1"]}
-      style={{ lineHeight: "64px", width: "100%", textAlign: "right" }}
+      style={styles}
     >
       {MENU_ITEMS_MARKUP}
-    </Menu>
+    </StyledMenu>
   );
 }
+
+const StyledMenu = styled(Menu)`
+  width: 100%;
+  line-height: 64px;
+  text-align: center;
+`;
