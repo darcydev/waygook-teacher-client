@@ -32,6 +32,7 @@ export default function NavBar({ styles = undefined }) {
 }
 
 const StyledMenu = styled(Menu)`
+  margin: 20px 0;
   width: 100%;
   line-height: 64px;
   text-align: center;

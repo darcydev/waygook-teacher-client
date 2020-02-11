@@ -19,4 +19,5 @@ export default function HeaderSection() {
 // STYLES
 const StyledHeader = styled(Header)`
   display: flex;
+  height: auto;
 `;
